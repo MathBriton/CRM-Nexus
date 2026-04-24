@@ -1,0 +1,5 @@
+<Solution>
+  <Project Path="DevStore.Api/DevStore.Api.csproj" />
+  <Project Path="DevStore.Domain/DevStore.Domain.csproj" />
+  <Project Path="DevStore.Infrastructure/DevStore.Infrastructure.csproj" />
+</Solution>
