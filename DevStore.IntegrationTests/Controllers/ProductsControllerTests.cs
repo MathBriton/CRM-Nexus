@@ -12,14 +12,16 @@ namespace DevStore.IntegrationTests.Controllers;
 public class ProductsControllerTests(ApiFactory factory)
     : IClassFixture<ApiFactory>, IAsyncLifetime
 {
-    private readonly HttpClient _client = factory.CreateClient();
+    private HttpClient _client = null!;
 
-    public Task InitializeAsync()
+    public async Task InitializeAsync()
     {
+        _client = await factory.CreateAuthenticatedClientAsync();
+
         using var scope = factory.Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<DevStoreDbContext>();
         db.Products.RemoveRange(db.Products);
-        return db.SaveChangesAsync();
+        await db.SaveChangesAsync();
     }
 
     public Task DisposeAsync() => Task.CompletedTask;
@@ -32,6 +34,14 @@ public class ProductsControllerTests(ApiFactory factory)
         db.Products.Add(produto);
         await db.SaveChangesAsync();
         return produto;
+    }
+
+    [Fact]
+    public async Task GET_Products_SemAutorizacao_Retorna401()
+    {
+        var clientSemToken = factory.CreateClient();
+        var resposta = await clientSemToken.GetAsync("/products");
+        resposta.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
 
     [Fact]

@@ -1,3 +1,6 @@
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using DevStore.Api.DTOs;
 using DevStore.Infrastructure.Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -34,6 +37,18 @@ public class ApiFactory : WebApplicationFactory<Program>, IAsyncLifetime
         using var scope = Services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<DevStoreDbContext>();
         await db.Database.MigrateAsync();
+    }
+
+    public async Task<HttpClient> CreateAuthenticatedClientAsync(
+        string username = "admin", string password = "Admin@123")
+    {
+        var client = CreateClient();
+        var response = await client.PostAsJsonAsync("/auth/login", new { username, password });
+        response.EnsureSuccessStatusCode();
+        var login = await response.Content.ReadFromJsonAsync<LoginResponse>();
+        client.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", login!.Token);
+        return client;
     }
 
     public new async Task DisposeAsync()

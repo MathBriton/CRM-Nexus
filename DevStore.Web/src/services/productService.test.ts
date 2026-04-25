@@ -1,8 +1,25 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, beforeEach } from 'vitest'
 import { productService } from './productService'
 import { produtos } from '../test/handlers'
+import { server } from '../test/server'
+import { http, HttpResponse } from 'msw'
 
 describe('productService', () => {
+  it('listar: envia header Authorization quando token presente', async () => {
+    localStorage.setItem('auth_token', 'test-token-123')
+    let authHeader: string | null = null
+
+    server.use(
+      http.get('/api/products', ({ request }) => {
+        authHeader = request.headers.get('Authorization')
+        return HttpResponse.json([])
+      })
+    )
+
+    await productService.listar()
+    expect(authHeader).toBe('Bearer test-token-123')
+  })
+
   it('listar: retorna todos os produtos', async () => {
     const resultado = await productService.listar()
     expect(resultado).toHaveLength(2)

@@ -1,10 +1,12 @@
 using DevStore.Api.DTOs;
 using DevStore.Domain.Entities;
 using DevStore.Domain.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevStore.Api.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("products")]
 public class ProductsController(IProductRepository repository) : ControllerBase
