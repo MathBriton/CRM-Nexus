@@ -1,55 +1,36 @@
-import { useState, useCallback } from 'react'
-import { Button } from '@/components/ui/button'
-import { ProductList } from '@/components/products/ProductList'
-import { ProductForm } from '@/components/products/ProductForm'
-import type { Product } from '@/types/product'
-
-type EstadoFormulario =
-  | { modo: 'criar' }
-  | { modo: 'editar'; produto: Product }
-  | null
+import { Routes, Route, Navigate } from 'react-router-dom'
+import { AuthProvider } from '@/contexts/AuthContext'
+import { ProtectedRoute } from '@/components/layout/ProtectedRoute'
+import { DashboardLayout } from '@/components/layout/DashboardLayout'
+import { LoginPage } from '@/pages/LoginPage'
+import { ProductsPage } from '@/pages/products/ProductsPage'
+import { ReceivingPage } from '@/pages/receiving/ReceivingPage'
+import { FinancialPage } from '@/pages/financial/FinancialPage'
+import { InputsPage } from '@/pages/inputs/InputsPage'
+import { TechnicalSheetsPage } from '@/pages/technical-sheets/TechnicalSheetsPage'
+import { UsersPage } from '@/pages/users/UsersPage'
+import { PermissionsPage } from '@/pages/permissions/PermissionsPage'
 
 function App() {
-  const [formulario, setFormulario] = useState<EstadoFormulario>(null)
-  const [chaveReload, setChaveReload] = useState(0)
-
-  const handleSucesso = useCallback(() => {
-    setFormulario(null)
-    setChaveReload((k) => k + 1)
-  }, [])
-
-  const handleEditar = useCallback((produto: Product) => {
-    setFormulario({ modo: 'editar', produto })
-  }, [])
-
-  const handleNovoClick = useCallback(() => {
-    setFormulario((atual) => (atual ? null : { modo: 'criar' }))
-  }, [])
-
   return (
-    <div className="min-h-screen bg-background">
-      <header className="border-b">
-        <div className="max-w-5xl mx-auto px-4 py-4 flex items-center justify-between">
-          <h1 className="text-2xl font-bold tracking-tight">DevStore</h1>
-          <Button
-            onClick={handleNovoClick}
-            variant={formulario ? 'outline' : 'default'}
-          >
-            {formulario ? 'Cancelar' : 'Novo Produto'}
-          </Button>
-        </div>
-      </header>
-
-      <main className="max-w-5xl mx-auto px-4 py-8 space-y-6">
-        {formulario && (
-          <ProductForm
-            produto={formulario.modo === 'editar' ? formulario.produto : undefined}
-            onSucesso={handleSucesso}
-          />
-        )}
-        <ProductList key={chaveReload} onEditar={handleEditar} />
-      </main>
-    </div>
+    <AuthProvider>
+      <Routes>
+        <Route path="/login" element={<LoginPage />} />
+        <Route element={<ProtectedRoute />}>
+          <Route element={<DashboardLayout />}>
+            <Route index element={<Navigate to="/products" replace />} />
+            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/receiving" element={<ReceivingPage />} />
+            <Route path="/financial" element={<FinancialPage />} />
+            <Route path="/inputs" element={<InputsPage />} />
+            <Route path="/technical-sheets" element={<TechnicalSheetsPage />} />
+            <Route path="/users" element={<UsersPage />} />
+            <Route path="/permissions" element={<PermissionsPage />} />
+          </Route>
+        </Route>
+        <Route path="*" element={<Navigate to="/login" replace />} />
+      </Routes>
+    </AuthProvider>
   )
 }
 
