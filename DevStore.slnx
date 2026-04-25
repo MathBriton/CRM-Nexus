@@ -2,4 +2,6 @@
   <Project Path="DevStore.Api/DevStore.Api.csproj" />
   <Project Path="DevStore.Domain/DevStore.Domain.csproj" />
   <Project Path="DevStore.Infrastructure/DevStore.Infrastructure.csproj" />
+  <Project Path="DevStore.IntegrationTests/DevStore.IntegrationTests.csproj" />
+  <Project Path="DevStore.UnitTests/DevStore.UnitTests.csproj" />
 </Solution>
