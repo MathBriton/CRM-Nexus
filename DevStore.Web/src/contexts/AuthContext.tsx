@@ -30,11 +30,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       body: JSON.stringify({ username, password }),
     })
     if (!res.ok) throw new Error('Credenciais inválidas')
-    const data = await res.json() as { token: string; user: Usuario }
+    const data = await res.json() as { token: string; id: number; username: string; name: string }
+    const usuario: Usuario = { id: data.id, username: data.username, name: data.name }
     localStorage.setItem('auth_token', data.token)
-    localStorage.setItem('auth_user', JSON.stringify(data.user))
+    localStorage.setItem('auth_user', JSON.stringify(usuario))
     setToken(data.token)
-    setUser(data.user)
+    setUser(usuario)
   }
 
   function logout() {

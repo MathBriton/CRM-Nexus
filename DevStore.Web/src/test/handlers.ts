@@ -18,7 +18,14 @@ export const handlers = [
   http.post('/api/auth/login', async ({ request }) => {
     const { username, password } = await request.json() as { username: string; password: string }
     if (username === 'admin' && password === 'admin123') {
-      return HttpResponse.json({ token: 'fake-jwt-token', user: usuarioAdmin })
+      return HttpResponse.json({
+        token: 'fake-jwt-token',
+        id: usuarioAdmin.id,
+        username: usuarioAdmin.username,
+        name: usuarioAdmin.name,
+        role: 'Admin',
+        expiresAt: new Date(Date.now() + 8 * 3600 * 1000).toISOString(),
+      })
     }
     return HttpResponse.json({ message: 'Credenciais inválidas' }, { status: 401 })
   }),

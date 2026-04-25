@@ -22,7 +22,7 @@ public class AuthController(IUserRepository userRepository, ITokenService tokenS
         var token = tokenService.GerarToken(user);
         var expiracao = DateTime.UtcNow.AddHours(8);
 
-        return Ok(new LoginResponse(token, user.Name, user.Role.ToString(), expiracao));
+        return Ok(new LoginResponse(token, user.Id, user.Username, user.Name, user.Role.ToString(), expiracao));
     }
 
     [HttpGet("me")]
