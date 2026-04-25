@@ -7,8 +7,9 @@ export const controlEstoque: ModuloConfig = {
   subtitulo: 'Movimentações de entrada e saída de produtos',
   entidade: 'movimentação',
   colunas: [
-    { key: 'data',        label: 'Data',       tipo: 'data' },
-    { key: 'produto',     label: 'Produto',    tipo: 'texto' },
+    { key: 'data',        label: 'Data',       tipo: 'data'   },
+    { key: 'produto',     label: 'Produto',    tipo: 'texto'  },
+    { key: 'planta',      label: 'Planta',     tipo: 'texto'  },
     { key: 'tipo',        label: 'Tipo',       tipo: 'badge', corBadge: { Entrada: 'green', Saída: 'red', Ajuste: 'yellow' } },
     { key: 'quantidade',  label: 'Qtd',        tipo: 'numero' },
     { key: 'saldoApos',   label: 'Saldo Após', tipo: 'numero' },
@@ -17,18 +18,19 @@ export const controlEstoque: ModuloConfig = {
   campos: [
     { key: 'data',        label: 'Data',        tipo: 'date',   required: true },
     { key: 'produto',     label: 'Produto',     tipo: 'text',   required: true, placeholder: 'Nome do produto' },
+    { key: 'planta',      label: 'Planta',      tipo: 'select', opcoes: ['Pirapetinga', 'Uberaba', 'Saquarema'], required: true },
     { key: 'tipo',        label: 'Tipo',        tipo: 'select', opcoes: ['Entrada', 'Saída', 'Ajuste'], required: true },
     { key: 'quantidade',  label: 'Quantidade',  tipo: 'number', required: true, placeholder: '0' },
     { key: 'responsavel', label: 'Responsável', tipo: 'text',   required: true, placeholder: 'Nome do responsável' },
   ],
   dadosMock: [
-    { id: 1, data: '2026-04-01', produto: 'Notebook Dell G15',   tipo: 'Entrada', quantidade: 20, saldoApos: 35, responsavel: 'Carlos Mendes' },
-    { id: 2, data: '2026-04-03', produto: 'Mouse Logitech MX3',  tipo: 'Saída',   quantidade: 5,  saldoApos: 18, responsavel: 'Ana Paula'     },
-    { id: 3, data: '2026-04-05', produto: 'Teclado Mecânico K95',tipo: 'Entrada', quantidade: 12, saldoApos: 12, responsavel: 'Carlos Mendes' },
-    { id: 4, data: '2026-04-08', produto: 'Monitor LG 27"',      tipo: 'Saída',   quantidade: 3,  saldoApos: 7,  responsavel: 'Fernanda Lima' },
-    { id: 5, data: '2026-04-10', produto: 'Headset HyperX',      tipo: 'Ajuste',  quantidade: 2,  saldoApos: 9,  responsavel: 'Ana Paula'     },
-    { id: 6, data: '2026-04-12', produto: 'Webcam Logitech C920',tipo: 'Entrada', quantidade: 8,  saldoApos: 8,  responsavel: 'Carlos Mendes' },
-    { id: 7, data: '2026-04-15', produto: 'Notebook Dell G15',   tipo: 'Saída',   quantidade: 4,  saldoApos: 31, responsavel: 'Fernanda Lima' },
+    { id: 1, data: '2026-04-01', produto: 'Notebook Dell G15',   planta: 'Pirapetinga', tipo: 'Entrada', quantidade: 20, saldoApos: 35, responsavel: 'Carlos Mendes' },
+    { id: 2, data: '2026-04-03', produto: 'Mouse Logitech MX3',  planta: 'Uberaba',     tipo: 'Saída',   quantidade: 5,  saldoApos: 18, responsavel: 'Ana Paula'     },
+    { id: 3, data: '2026-04-05', produto: 'Teclado Mecânico K95',planta: 'Saquarema',   tipo: 'Entrada', quantidade: 12, saldoApos: 12, responsavel: 'Carlos Mendes' },
+    { id: 4, data: '2026-04-08', produto: 'Monitor LG 27"',      planta: 'Pirapetinga', tipo: 'Saída',   quantidade: 3,  saldoApos: 7,  responsavel: 'Fernanda Lima' },
+    { id: 5, data: '2026-04-10', produto: 'Headset HyperX',      planta: 'Uberaba',     tipo: 'Ajuste',  quantidade: 2,  saldoApos: 9,  responsavel: 'Ana Paula'     },
+    { id: 6, data: '2026-04-12', produto: 'Webcam Logitech C920',planta: 'Saquarema',   tipo: 'Entrada', quantidade: 8,  saldoApos: 8,  responsavel: 'Carlos Mendes' },
+    { id: 7, data: '2026-04-15', produto: 'Notebook Dell G15',   planta: 'Pirapetinga', tipo: 'Saída',   quantidade: 4,  saldoApos: 31, responsavel: 'Fernanda Lima' },
   ],
 }
 
@@ -337,6 +339,7 @@ export const fichasProducao: ModuloConfig = {
   colunas: [
     { key: 'codigo',      label: 'Código',         tipo: 'texto'  },
     { key: 'produto',     label: 'Produto',        tipo: 'texto'  },
+    { key: 'planta',      label: 'Planta',         tipo: 'texto'  },
     { key: 'rendimento',  label: 'Rendimento',     tipo: 'texto'  },
     { key: 'tempoPreparo',label: 'Tempo (min)',     tipo: 'numero' },
     { key: 'custoProd',   label: 'Custo Produção', tipo: 'moeda'  },
@@ -345,17 +348,18 @@ export const fichasProducao: ModuloConfig = {
   campos: [
     { key: 'codigo',      label: 'Código',       tipo: 'text',   required: true, placeholder: 'FP-000' },
     { key: 'produto',     label: 'Produto',      tipo: 'text',   required: true },
+    { key: 'planta',      label: 'Planta',       tipo: 'select', opcoes: ['Pirapetinga', 'Uberaba', 'Saquarema'], required: true },
     { key: 'rendimento',  label: 'Rendimento',   tipo: 'text',   placeholder: 'Ex: 10 unidades' },
     { key: 'tempoPreparo',label: 'Tempo (min)',   tipo: 'number', required: true },
     { key: 'custoProd',   label: 'Custo (R$)',   tipo: 'number' },
     { key: 'versao',      label: 'Versão',       tipo: 'select', opcoes: ['Ativa', 'Rascunho', 'Obsoleta'] },
   ],
   dadosMock: [
-    { id: 1, codigo: 'FP-001', produto: 'Mesa Home Office 1,20m',      rendimento: '1 unidade',  tempoPreparo: 180, custoProd: 380.00, versao: 'Ativa'    },
-    { id: 2, codigo: 'FP-002', produto: 'Cadeira Executiva Base Prata', rendimento: '1 unidade',  tempoPreparo: 95,  custoProd: 290.00, versao: 'Ativa'    },
-    { id: 3, codigo: 'FP-003', produto: 'Prateleira Suspensa 80cm',    rendimento: '2 unidades', tempoPreparo: 60,  custoProd: 95.00,  versao: 'Ativa'    },
-    { id: 4, codigo: 'FP-004', produto: 'Armário Organizador 4 portas',rendimento: '1 unidade',  tempoPreparo: 240, custoProd: 520.00, versao: 'Rascunho' },
-    { id: 5, codigo: 'FP-005', produto: 'Mesa de Canto L',             rendimento: '1 unidade',  tempoPreparo: 150, custoProd: 310.00, versao: 'Obsoleta' },
+    { id: 1, codigo: 'FP-001', produto: 'Mesa Home Office 1,20m',      planta: 'Pirapetinga', rendimento: '1 unidade',  tempoPreparo: 180, custoProd: 380.00, versao: 'Ativa'    },
+    { id: 2, codigo: 'FP-002', produto: 'Cadeira Executiva Base Prata', planta: 'Uberaba',     rendimento: '1 unidade',  tempoPreparo: 95,  custoProd: 290.00, versao: 'Ativa'    },
+    { id: 3, codigo: 'FP-003', produto: 'Prateleira Suspensa 80cm',    planta: 'Saquarema',   rendimento: '2 unidades', tempoPreparo: 60,  custoProd: 95.00,  versao: 'Ativa'    },
+    { id: 4, codigo: 'FP-004', produto: 'Armário Organizador 4 portas',planta: 'Pirapetinga', rendimento: '1 unidade',  tempoPreparo: 240, custoProd: 520.00, versao: 'Rascunho' },
+    { id: 5, codigo: 'FP-005', produto: 'Mesa de Canto L',             planta: 'Uberaba',     rendimento: '1 unidade',  tempoPreparo: 150, custoProd: 310.00, versao: 'Obsoleta' },
   ],
 }
 
@@ -395,6 +399,7 @@ export const controleQualidade: ModuloConfig = {
   colunas: [
     { key: 'data',         label: 'Data',        tipo: 'data'  },
     { key: 'produto',      label: 'Produto',     tipo: 'texto' },
+    { key: 'planta',       label: 'Planta',      tipo: 'texto' },
     { key: 'lote',         label: 'Lote',        tipo: 'texto' },
     { key: 'responsavel',  label: 'Inspetor',    tipo: 'texto' },
     { key: 'resultado',    label: 'Resultado',   tipo: 'badge', corBadge: { Aprovado: 'green', Reprovado: 'red', 'Em análise': 'yellow' } },
@@ -403,17 +408,18 @@ export const controleQualidade: ModuloConfig = {
   campos: [
     { key: 'data',        label: 'Data',        tipo: 'date',     required: true },
     { key: 'produto',     label: 'Produto',     tipo: 'text',     required: true },
+    { key: 'planta',      label: 'Planta',      tipo: 'select',   opcoes: ['Pirapetinga', 'Uberaba', 'Saquarema'], required: true },
     { key: 'lote',        label: 'Lote',        tipo: 'text',     required: true, placeholder: 'LOT-000' },
     { key: 'responsavel', label: 'Inspetor',    tipo: 'text',     required: true },
     { key: 'resultado',   label: 'Resultado',   tipo: 'select',   opcoes: ['Aprovado', 'Reprovado', 'Em análise'] },
     { key: 'observacao',  label: 'Observação',  tipo: 'textarea' },
   ],
   dadosMock: [
-    { id: 1, data: '2026-04-05', produto: 'Mesa Home Office 1,20m',       lote: 'LOT-042', responsavel: 'Gustavo Lima',    resultado: 'Aprovado',    observacao: '' },
-    { id: 2, data: '2026-04-08', produto: 'Cadeira Executiva Base Prata', lote: 'LOT-043', responsavel: 'Gustavo Lima',    resultado: 'Reprovado',   observacao: 'Base fora de alinhamento — retorno para ajuste' },
-    { id: 3, data: '2026-04-10', produto: 'Prateleira Suspensa 80cm',     lote: 'LOT-044', responsavel: 'Silvia Rocha',    resultado: 'Aprovado',    observacao: '' },
-    { id: 4, data: '2026-04-14', produto: 'Mesa Home Office 1,20m',       lote: 'LOT-045', responsavel: 'Silvia Rocha',    resultado: 'Em análise',  observacao: 'Verificar acabamento lateral' },
-    { id: 5, data: '2026-04-18', produto: 'Armário Organizador 4 portas', lote: 'LOT-046', responsavel: 'Gustavo Lima',    resultado: 'Aprovado',    observacao: '' },
+    { id: 1, data: '2026-04-05', produto: 'Mesa Home Office 1,20m',       planta: 'Pirapetinga', lote: 'LOT-042', responsavel: 'Gustavo Lima', resultado: 'Aprovado',   observacao: '' },
+    { id: 2, data: '2026-04-08', produto: 'Cadeira Executiva Base Prata', planta: 'Uberaba',     lote: 'LOT-043', responsavel: 'Gustavo Lima', resultado: 'Reprovado',  observacao: 'Base fora de alinhamento — retorno para ajuste' },
+    { id: 3, data: '2026-04-10', produto: 'Prateleira Suspensa 80cm',     planta: 'Saquarema',   lote: 'LOT-044', responsavel: 'Silvia Rocha', resultado: 'Aprovado',   observacao: '' },
+    { id: 4, data: '2026-04-14', produto: 'Mesa Home Office 1,20m',       planta: 'Pirapetinga', lote: 'LOT-045', responsavel: 'Silvia Rocha', resultado: 'Em análise', observacao: 'Verificar acabamento lateral' },
+    { id: 5, data: '2026-04-18', produto: 'Armário Organizador 4 portas', planta: 'Uberaba',     lote: 'LOT-046', responsavel: 'Gustavo Lima', resultado: 'Aprovado',   observacao: '' },
   ],
 }
 
