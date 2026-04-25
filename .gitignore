@@ -7,3 +7,18 @@ obj/
 *.db
 *.db-shm
 *.db-wal
+
+# Variáveis de ambiente (nunca commitar segredos)
+.env
+.env.*
+
+# Node
+DevStore.Web/node_modules/
+DevStore.Web/dist/
+
+# Cobertura de testes
+coverage/
+DevStore.Web/coverage/
+
+# Logs
+*.log
