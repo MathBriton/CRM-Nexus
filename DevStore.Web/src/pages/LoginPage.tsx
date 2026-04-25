@@ -47,6 +47,7 @@ export function LoginPage() {
               <Input
                 id="username"
                 autoComplete="username"
+                placeholder="admin"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
@@ -58,6 +59,7 @@ export function LoginPage() {
                 id="password"
                 type="password"
                 autoComplete="current-password"
+                placeholder="Admin@123"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
