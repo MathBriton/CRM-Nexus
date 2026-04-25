@@ -2,7 +2,7 @@ export interface ColunaConfig {
   key: string
   label: string
   tipo?: 'texto' | 'numero' | 'moeda' | 'data' | 'badge' | 'email'
-  corBadge?: Record<string, 'green' | 'red' | 'yellow' | 'blue' | 'orange' | 'gray'>
+  corBadge?: Record<string, 'green' | 'red' | 'yellow' | 'blue' | 'orange' | 'gray' | 'purple' | 'cyan'>
   largeuraRelatorio?: number
 }
 

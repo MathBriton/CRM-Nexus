@@ -81,8 +81,8 @@ export function GraficoFinanceiro() {
               <XAxis dataKey="label" tick={{ fontSize: 12 }} />
               <YAxis tickFormatter={(v) => `R$${(v / 1000).toFixed(0)}k`} tick={{ fontSize: 11 }} width={52} />
               <Tooltip
-                formatter={(value: number, name: string) => [
-                  formatarReais(value),
+                formatter={(value, name) => [
+                  formatarReais(Number(value ?? 0)),
                   name === 'receita' ? 'Receita' : 'Despesa',
                 ]}
               />

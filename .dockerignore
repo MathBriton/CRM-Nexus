@@ -1,0 +1,19 @@
+# Ignora projetos que não entram na imagem da API
+DevStore.Web/
+DevStore.IntegrationTests/
+
+# Git e IDE
+.git/
+.github/
+.vs/
+.vscode/
+*.user
+
+# Artefatos de build
+**/bin/
+**/obj/
+
+# Banco local e segredos
+DevStore.Api/devstore.db
+*.env
+.env*

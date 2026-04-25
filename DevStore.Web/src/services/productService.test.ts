@@ -1,4 +1,4 @@
-import { describe, it, expect, beforeEach } from 'vitest'
+import { describe, it, expect } from 'vitest'
 import { productService } from './productService'
 import { produtos } from '../test/handlers'
 import { server } from '../test/server'

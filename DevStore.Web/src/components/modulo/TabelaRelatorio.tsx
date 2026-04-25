@@ -11,6 +11,7 @@ const COR_BADGE: Record<string, string> = {
   orange: 'bg-orange-100 text-orange-800',
   gray:   'bg-gray-100 text-gray-700',
   cyan:   'bg-cyan-100 text-cyan-800',
+  purple: 'bg-purple-100 text-purple-800',
 }
 
 function CelulaBadge({ valor, corBadge }: { valor: string; corBadge: Record<string, string> }) {

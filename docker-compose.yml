@@ -1,0 +1,45 @@
+name: devstore
+
+services:
+
+  # ── API (.NET 10) ─────────────────────────────────────────────────────────────
+  api:
+    build:
+      context: .
+      dockerfile: DevStore.Api/Dockerfile
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      # Banco SQLite persistido em volume
+      ConnectionStrings__DefaultConnection: "Data Source=/data/devstore.db"
+      # JWT — troque JWT_SECRET por uma variável de ambiente segura em produção
+      Jwt__Secret: "${JWT_SECRET:-DevStore_JwtSecret_2026_MustBeAtLeast32Chars_ReplaceInProd!}"
+      Jwt__Issuer: "DevStore"
+      Jwt__Audience: "DevStore"
+      # CORS — em produção adicione a URL pública do frontend aqui
+      Cors__AllowedOrigins: "${CORS_ORIGINS:-http://localhost}"
+    volumes:
+      - db-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/health || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+
+  # ── Frontend (React + Nginx) ───────────────────────────────────────────────────
+  web:
+    build:
+      context: DevStore.Web
+      dockerfile: Dockerfile
+    ports:
+      - "${PORT:-80}:80"
+    environment:
+      # Apontado para o serviço api via rede interna do Docker Compose
+      API_UPSTREAM: "http://api:8080"
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  db-data:
