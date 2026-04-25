@@ -23,8 +23,23 @@ describe('UserForm — criar', () => {
 
   it('exibe campos de username e senha no modo criar', () => {
     renderWithProviders(<UserForm onSucesso={() => {}} />)
-    expect(screen.getByLabelText(/usuário/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/^usuário$/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/senha/i)).toBeInTheDocument()
+  })
+
+  it('exibe o campo de avatar', () => {
+    renderWithProviders(<UserForm onSucesso={() => {}} />)
+    expect(screen.getByLabelText(/selecionar foto de perfil/i)).toBeInTheDocument()
+  })
+
+  it('exibe o seletor de papel no sistema', () => {
+    renderWithProviders(<UserForm onSucesso={() => {}} />)
+    expect(screen.getByLabelText(/papel no sistema/i)).toBeInTheDocument()
+  })
+
+  it('exibe o seletor de nível de permissão', () => {
+    renderWithProviders(<UserForm onSucesso={() => {}} />)
+    expect(screen.getByLabelText(/nível de permissão/i)).toBeInTheDocument()
   })
 
   it('chama onSucesso após criar com sucesso', async () => {
@@ -32,7 +47,7 @@ describe('UserForm — criar', () => {
     const onSucesso = vi.fn()
     renderWithProviders(<UserForm onSucesso={onSucesso} />)
 
-    await user.type(screen.getByLabelText(/usuário/i), 'novousr')
+    await user.type(screen.getByLabelText(/^usuário$/i), 'novousr')
     await user.type(screen.getByLabelText(/nome completo/i), 'Novo Usuário')
     await user.type(screen.getByLabelText(/e-mail/i), 'novo@dev.com')
     await user.type(screen.getByLabelText(/senha/i), 'Senha@123')
@@ -51,7 +66,7 @@ describe('UserForm — editar', () => {
   it('não exibe campos de username e senha no modo editar', () => {
     renderWithProviders(<UserForm usuario={usuarioExistente} onSucesso={() => {}} />)
     expect(screen.queryByLabelText(/^usuário$/i)).not.toBeInTheDocument()
-    expect(screen.queryByLabelText(/senha/i)).not.toBeInTheDocument()
+    expect(screen.queryByLabelText(/^senha$/i)).not.toBeInTheDocument()
   })
 
   it('preenche campos com dados do usuário', () => {

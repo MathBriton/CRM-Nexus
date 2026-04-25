@@ -1,13 +1,14 @@
-import { NavLink, useNavigate } from 'react-router-dom'
+import { NavLink, Link, useNavigate } from 'react-router-dom'
 import {
-  Package, PackageCheck, DollarSign, FlaskConical,
-  FileText, Users, Shield, LogOut,
+  LayoutDashboard, Package, PackageCheck, DollarSign,
+  FlaskConical, FileText, Users, Shield, LogOut,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/contexts/AuthContext'
 import { cn } from '@/lib/utils'
 
 const modulos = [
+  { label: 'Dashboard',       path: '/dashboard',        icon: LayoutDashboard },
   { label: 'Produtos',        path: '/products',         icon: Package },
   { label: 'Recebimento',     path: '/receiving',        icon: PackageCheck },
   { label: 'Financeiro',      path: '/financial',        icon: DollarSign },
@@ -28,10 +29,14 @@ export function Sidebar() {
 
   return (
     <aside className="flex h-full w-60 flex-col border-r bg-card">
-      <div className="flex items-center gap-2 px-6 py-5 border-b">
+      <Link
+        to="/dashboard"
+        className="flex items-center gap-2 px-6 py-5 border-b hover:bg-muted/50 transition-colors"
+        aria-label="Ir para o dashboard"
+      >
         <Package className="h-5 w-5 text-primary" />
         <span className="font-bold text-lg">DevStore</span>
-      </div>
+      </Link>
 
       <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-1">
         {modulos.map(({ label, path, icon: Icon }) => (

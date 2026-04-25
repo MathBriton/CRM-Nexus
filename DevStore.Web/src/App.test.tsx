@@ -1,4 +1,11 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
+
+vi.mock('recharts', () => ({
+  ResponsiveContainer: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  AreaChart: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+  Area: () => null, XAxis: () => null, YAxis: () => null,
+  CartesianGrid: () => null, Tooltip: () => null, Legend: () => null,
+}))
 import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { render } from '@testing-library/react'
@@ -59,9 +66,9 @@ describe('App — roteamento', () => {
     expect(screen.getByLabelText(/usuário/i)).toBeInTheDocument()
   })
 
-  it('redireciona / para /products quando autenticado', async () => {
+  it('redireciona / para /dashboard quando autenticado', async () => {
     autenticar()
     renderApp('/')
-    await waitFor(() => expect(screen.getByText('Notebook')).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByRole('heading', { name: /visão geral/i })).toBeInTheDocument())
   })
 })

@@ -11,6 +11,8 @@ function renderSidebar(route = '/products') {
 describe('Sidebar', () => {
   it('exibe todos os módulos de navegação', () => {
     renderSidebar()
+    expect(screen.getByRole('link', { name: /ir para o dashboard/i })).toBeInTheDocument()
+    expect(screen.getAllByRole('link', { name: /dashboard/i })).toHaveLength(2)
     expect(screen.getByRole('link', { name: /produtos/i })).toBeInTheDocument()
     expect(screen.getByRole('link', { name: /recebimento/i })).toBeInTheDocument()
     expect(screen.getByRole('link', { name: /financeiro/i })).toBeInTheDocument()

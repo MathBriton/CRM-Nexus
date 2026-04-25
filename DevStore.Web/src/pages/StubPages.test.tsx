@@ -34,8 +34,9 @@ describe('Páginas stub dos módulos', () => {
     expect(screen.getByRole('heading', { name: /usuários/i })).toBeInTheDocument()
   })
 
-  it('PermissionsPage exibe título', () => {
+  it('PermissionsPage exibe título e lista permissões padrão', () => {
     renderWithProviders(<PermissionsPage />)
     expect(screen.getByRole('heading', { name: /permissões/i })).toBeInTheDocument()
+    expect(screen.getByText('Administrador')).toBeInTheDocument()
   })
 })
