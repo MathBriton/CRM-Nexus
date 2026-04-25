@@ -56,4 +56,50 @@ describe('App', () => {
     )
     expect(screen.getByText('Notebook')).toBeInTheDocument()
   })
+
+  it('abre formulário de edição ao clicar em Editar na lista', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    await waitFor(() => screen.getByText('Notebook'))
+    await user.click(screen.getAllByRole('button', { name: /editar/i })[0])
+
+    expect(screen.getByLabelText(/nome/i)).toHaveValue('Notebook')
+  })
+
+  it('exibe título Editar Produto no formulário de edição', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    await waitFor(() => screen.getByText('Notebook'))
+    await user.click(screen.getAllByRole('button', { name: /editar/i })[0])
+
+    expect(screen.getByRole('heading', { name: /editar produto/i })).toBeInTheDocument()
+  })
+
+  it('oculta formulário após editar produto com sucesso', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    await waitFor(() => screen.getByText('Notebook'))
+    await user.click(screen.getAllByRole('button', { name: /editar/i })[0])
+    await user.clear(screen.getByLabelText(/nome/i))
+    await user.type(screen.getByLabelText(/nome/i), 'Notebook Pro')
+    await user.click(screen.getByRole('button', { name: /salvar/i }))
+
+    await waitFor(() =>
+      expect(screen.queryByLabelText(/nome/i)).not.toBeInTheDocument()
+    )
+  })
+
+  it('botão Cancelar oculta o formulário', async () => {
+    const user = userEvent.setup()
+    render(<App />)
+
+    await user.click(screen.getByRole('button', { name: /novo produto/i }))
+    expect(screen.getByLabelText(/nome/i)).toBeInTheDocument()
+
+    await user.click(screen.getByRole('button', { name: /cancelar/i }))
+    expect(screen.queryByLabelText(/nome/i)).not.toBeInTheDocument()
+  })
 })

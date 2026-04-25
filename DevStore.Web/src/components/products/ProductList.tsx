@@ -13,7 +13,11 @@ import {
 import type { Product } from '@/types/product'
 import { productService } from '@/services/productService'
 
-export function ProductList() {
+interface Props {
+  onEditar?: (produto: Product) => void
+}
+
+export function ProductList({ onEditar }: Props) {
   const [produtos, setProdutos] = useState<Product[]>([])
   const [carregando, setCarregando] = useState(true)
 
@@ -69,7 +73,14 @@ export function ProductList() {
                       {produto.stock} em estoque
                     </Badge>
                   </TableCell>
-                  <TableCell className="text-right">
+                  <TableCell className="text-right space-x-2">
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => onEditar?.(produto)}
+                    >
+                      Editar
+                    </Button>
                     <Button
                       variant="destructive"
                       size="sm"

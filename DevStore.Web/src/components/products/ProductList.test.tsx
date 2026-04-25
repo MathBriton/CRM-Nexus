@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import { ProductList } from './ProductList'
@@ -36,5 +36,23 @@ describe('ProductList', () => {
     await waitFor(() =>
       expect(screen.queryByText('Notebook')).not.toBeInTheDocument()
     )
+  })
+
+  it('chama onEditar ao clicar em editar', async () => {
+    const user = userEvent.setup()
+    const onEditar = vi.fn()
+    render(<ProductList onEditar={onEditar} />)
+
+    await waitFor(() => screen.getByText('Notebook'))
+    await user.click(screen.getAllByRole('button', { name: /editar/i })[0])
+
+    expect(onEditar).toHaveBeenCalledWith(expect.objectContaining({ name: 'Notebook' }))
+  })
+
+  it('exibe botão editar para cada produto', async () => {
+    render(<ProductList />)
+
+    await waitFor(() => screen.getByText('Notebook'))
+    expect(screen.getAllByRole('button', { name: /editar/i })).toHaveLength(2)
   })
 })
