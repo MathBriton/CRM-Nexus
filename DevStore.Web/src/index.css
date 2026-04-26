@@ -84,37 +84,56 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.87 0 0);
-  --chart-2: oklch(0.556 0 0);
-  --chart-3: oklch(0.439 0 0);
-  --chart-4: oklch(0.371 0 0);
-  --chart-5: oklch(0.269 0 0);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
+  /* ── Fundação: slate-violeta profundo ─────────────────────────────────── */
+  --background: oklch(0.11 0.022 278);
+  --foreground: oklch(0.96 0.006 278);
+
+  /* ── Superfícies ─────────────────────────────────────────────────────── */
+  --card: oklch(0.17 0.018 278);
+  --card-foreground: oklch(0.96 0.006 278);
+  --popover: oklch(0.17 0.018 278);
+  --popover-foreground: oklch(0.96 0.006 278);
+
+  /* ── Interativo: violeta vibrante (brand Nexus) ───────────────────────── */
+  --primary: oklch(0.67 0.22 285);
+  --primary-foreground: oklch(0.99 0 0);
+
+  /* ── Secundário ────────────────────────────────────────────────────────── */
+  --secondary: oklch(0.23 0.024 278);
+  --secondary-foreground: oklch(0.96 0.006 278);
+
+  /* ── Muted: lilás sutil ────────────────────────────────────────────────── */
+  --muted: oklch(0.21 0.02 278);
+  --muted-foreground: oklch(0.6 0.032 278);
+
+  /* ── Accent ───────────────────────────────────────────────────────────── */
+  --accent: oklch(0.25 0.028 278);
+  --accent-foreground: oklch(0.96 0.006 278);
+
+  /* ── Feedback ────────────────────────────────────────────────────────── */
+  --destructive: oklch(0.65 0.22 22);
+
+  /* ── Bordas e inputs ────────────────────────────────────────────────── */
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 13%);
+  --ring: oklch(0.67 0.22 285);
+
+  /* ── Gráficos: paleta violeta → índigo → ciano ────────────────────────── */
+  --chart-1: oklch(0.7 0.2 285);
+  --chart-2: oklch(0.62 0.18 305);
+  --chart-3: oklch(0.58 0.16 255);
+  --chart-4: oklch(0.52 0.14 235);
+  --chart-5: oklch(0.46 0.12 215);
+
+  /* ── Sidebar: tom ligeiramente distinto do background ─────────────────── */
+  --sidebar: oklch(0.14 0.024 278);
+  --sidebar-foreground: oklch(0.96 0.006 278);
+  --sidebar-primary: oklch(0.67 0.22 285);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.23 0.024 278);
+  --sidebar-accent-foreground: oklch(0.96 0.006 278);
+  --sidebar-border: oklch(1 0 0 / 8%);
+  --sidebar-ring: oklch(0.67 0.22 285);
 }
 
 @layer base {

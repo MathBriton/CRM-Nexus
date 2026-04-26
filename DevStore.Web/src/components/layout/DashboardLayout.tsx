@@ -1,4 +1,5 @@
 import { Outlet } from 'react-router-dom'
+import { Toaster } from 'sonner'
 import { Sidebar } from './Sidebar'
 
 export function DashboardLayout() {
@@ -8,6 +9,7 @@ export function DashboardLayout() {
       <main className="flex-1 overflow-y-auto p-6">
         <Outlet />
       </main>
+      <Toaster richColors position="top-right" closeButton />
     </div>
   )
 }

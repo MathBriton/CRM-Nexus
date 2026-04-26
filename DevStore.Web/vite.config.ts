@@ -24,5 +24,17 @@ export default defineConfig({
     environmentOptions: {
       jsdom: { url: 'http://localhost:5173' },
     },
+    coverage: {
+      provider: 'v8',
+      reporter: ['text', 'html', 'lcov'],
+      include: ['src/**/*.{ts,tsx}'],
+      exclude: [
+        'src/**/*.test.{ts,tsx}',
+        'src/test/**',
+        'src/main.tsx',
+        'src/components/ui/**',
+        'src/data/**',
+      ],
+    },
   },
 })

@@ -11,8 +11,8 @@ describe('ProductList', () => {
 
   it('exibe os produtos após carregar', async () => {
     render(<ProductList />)
-    await waitFor(() => expect(screen.getByText('Notebook')).toBeInTheDocument())
-    expect(screen.getByText('Mouse')).toBeInTheDocument()
+    await waitFor(() => expect(screen.getByText('Notebook Dell G15')).toBeInTheDocument())
+    expect(screen.getByText('Mouse Logitech MX Master 3')).toBeInTheDocument()
   })
 
   it('exibe preço formatado em reais', async () => {
@@ -22,18 +22,18 @@ describe('ProductList', () => {
 
   it('exibe estoque de cada produto', async () => {
     render(<ProductList />)
-    await waitFor(() => expect(screen.getByText(/10 em estoque/i)).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByText(/15 em estoque/i)).toBeInTheDocument())
   })
 
   it('remove produto ao clicar em excluir', async () => {
     const user = userEvent.setup()
     render(<ProductList />)
 
-    await waitFor(() => screen.getByText('Notebook'))
+    await waitFor(() => screen.getByText('Notebook Dell G15'))
     const botoes = screen.getAllByRole('button', { name: /excluir/i })
     await user.click(botoes[0])
 
-    await waitFor(() => expect(screen.queryByText('Notebook')).not.toBeInTheDocument())
+    await waitFor(() => expect(screen.queryByText('Notebook Dell G15')).not.toBeInTheDocument())
   })
 
   it('chama onEditar ao clicar em editar', async () => {
@@ -41,16 +41,16 @@ describe('ProductList', () => {
     const onEditar = vi.fn()
     render(<ProductList onEditar={onEditar} />)
 
-    await waitFor(() => screen.getByText('Notebook'))
+    await waitFor(() => screen.getByText('Notebook Dell G15'))
     await user.click(screen.getAllByRole('button', { name: /editar/i })[0])
 
-    expect(onEditar).toHaveBeenCalledWith(expect.objectContaining({ name: 'Notebook' }))
+    expect(onEditar).toHaveBeenCalledWith(expect.objectContaining({ name: 'Notebook Dell G15' }))
   })
 
   it('exibe botão editar para cada produto', async () => {
     render(<ProductList />)
 
-    await waitFor(() => screen.getByText('Notebook'))
-    expect(screen.getAllByRole('button', { name: /editar/i })).toHaveLength(2)
+    await waitFor(() => screen.getByText('Notebook Dell G15'))
+    expect(screen.getAllByRole('button', { name: /editar/i })).toHaveLength(15)
   })
 })

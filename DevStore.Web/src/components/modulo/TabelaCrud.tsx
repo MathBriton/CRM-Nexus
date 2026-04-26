@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Plus, Pencil, Trash2 } from 'lucide-react'
+import { toast } from 'sonner'
 import { Button } from '@/components/ui/button'
 import { DataTable } from './DataTable'
 import { FormModal } from './FormModal'
@@ -20,14 +21,17 @@ export function TabelaCrud({ config }: Props) {
   function salvar(form: Record<string, string>) {
     if (modal === 'novo') {
       setDados((prev) => [...prev, { id: ++_proximoId, ...form }])
+      toast.success(`${config.entidade} criado com sucesso`)
     } else {
       setDados((prev) => prev.map((r) => (r.id === (modal as Registro).id ? { ...r, ...form } : r)))
+      toast.success(`${config.entidade} atualizado com sucesso`)
     }
     setModal(null)
   }
 
   function excluir(id: unknown) {
     setDados((prev) => prev.filter((r) => r.id !== id))
+    toast.success(`${config.entidade} excluído`)
   }
 
   const temAcoes = config.campos.length > 0

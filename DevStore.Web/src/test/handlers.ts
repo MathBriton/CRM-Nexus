@@ -17,32 +17,256 @@ export const usuarios: User[] = [
   {
     id: 2,
     username: 'gerente',
-    name: 'Gerente',
+    name: 'Gerente Geral',
     email: 'gerente@devstore.com',
     role: 'Manager',
     isActive: true,
     createdAt: '2026-01-02T00:00:00Z',
+  },
+  {
+    id: 3,
+    username: 'maria.garcia',
+    name: 'Maria Garcia',
+    email: 'maria.garcia@devstore.com',
+    role: 'Manager',
+    isActive: true,
+    createdAt: '2026-01-05T00:00:00Z',
+  },
+  {
+    id: 4,
+    username: 'carlos.mendes',
+    name: 'Carlos Mendes',
+    email: 'carlos.mendes@devstore.com',
+    role: 'User',
+    isActive: true,
+    createdAt: '2026-01-08T00:00:00Z',
+  },
+  {
+    id: 5,
+    username: 'ana.paula',
+    name: 'Ana Paula Souza',
+    email: 'ana.paula@devstore.com',
+    role: 'User',
+    isActive: true,
+    createdAt: '2026-01-10T00:00:00Z',
+  },
+  {
+    id: 6,
+    username: 'fernanda.lima',
+    name: 'Fernanda Lima',
+    email: 'fernanda.lima@devstore.com',
+    role: 'User',
+    isActive: false,
+    createdAt: '2026-01-12T00:00:00Z',
+  },
+  {
+    id: 7,
+    username: 'rafael.costa',
+    name: 'Rafael Costa',
+    email: 'rafael.costa@devstore.com',
+    role: 'User',
+    isActive: true,
+    createdAt: '2026-01-15T00:00:00Z',
+  },
+  {
+    id: 8,
+    username: 'beatriz.souza',
+    name: 'Beatriz Souza',
+    email: 'beatriz.souza@devstore.com',
+    role: 'Manager',
+    isActive: true,
+    createdAt: '2026-01-18T00:00:00Z',
+  },
+  {
+    id: 9,
+    username: 'lucas.ferreira',
+    name: 'Lucas Ferreira',
+    email: 'lucas.ferreira@devstore.com',
+    role: 'User',
+    isActive: true,
+    createdAt: '2026-01-20T00:00:00Z',
+  },
+  {
+    id: 10,
+    username: 'patricia.lima',
+    name: 'Patrícia Lima',
+    email: 'patricia.lima@devstore.com',
+    role: 'User',
+    isActive: true,
+    createdAt: '2026-01-22T00:00:00Z',
+  },
+  {
+    id: 11,
+    username: 'marcos.vieira',
+    name: 'Marcos Vieira',
+    email: 'marcos.vieira@devstore.com',
+    role: 'Manager',
+    isActive: true,
+    createdAt: '2026-02-01T00:00:00Z',
+  },
+  {
+    id: 12,
+    username: 'silvia.rocha',
+    name: 'Silvia Rocha',
+    email: 'silvia.rocha@devstore.com',
+    role: 'User',
+    isActive: false,
+    createdAt: '2026-02-03T00:00:00Z',
+  },
+  {
+    id: 13,
+    username: 'gustavo.lima',
+    name: 'Gustavo Lima',
+    email: 'gustavo.lima@devstore.com',
+    role: 'User',
+    isActive: true,
+    createdAt: '2026-02-05T00:00:00Z',
+  },
+  {
+    id: 14,
+    username: 'joao.silva',
+    name: 'João Silva',
+    email: 'joao.silva@devstore.com',
+    role: 'User',
+    isActive: true,
+    createdAt: '2026-02-08T00:00:00Z',
+  },
+  {
+    id: 15,
+    username: 'carla.nunes',
+    name: 'Carla Nunes',
+    email: 'carla.nunes@devstore.com',
+    role: 'User',
+    isActive: true,
+    createdAt: '2026-02-10T00:00:00Z',
   },
 ]
 
 export const produtos: Product[] = [
   {
     id: 1,
-    name: 'Notebook',
-    description: 'Notebook gamer',
+    name: 'Notebook Dell G15',
+    description: 'Notebook gamer com RTX 4060 e 16GB RAM',
     price: 4999,
-    stock: 10,
+    stock: 15,
     createdAt: '2026-01-01T00:00:00Z',
   },
   {
     id: 2,
-    name: 'Mouse',
-    description: 'Mouse sem fio',
-    price: 199,
-    stock: 50,
+    name: 'Mouse Logitech MX Master 3',
+    description: 'Mouse sem fio ergonômico para produtividade',
+    price: 399,
+    stock: 42,
     createdAt: '2026-01-02T00:00:00Z',
   },
+  {
+    id: 3,
+    name: 'Teclado Mecânico K95',
+    description: 'Teclado mecânico RGB com switches Cherry MX Red',
+    price: 699,
+    stock: 20,
+    createdAt: '2026-01-05T00:00:00Z',
+  },
+  {
+    id: 4,
+    name: 'Monitor LG UltraWide 34"',
+    description: 'Monitor curvo ultrawide QHD 144Hz',
+    price: 2199,
+    stock: 8,
+    createdAt: '2026-01-08T00:00:00Z',
+  },
+  {
+    id: 5,
+    name: 'Headset HyperX Cloud II',
+    description: 'Headset gamer 7.1 surround com espuma de memória',
+    price: 499,
+    stock: 25,
+    createdAt: '2026-01-10T00:00:00Z',
+  },
+  {
+    id: 6,
+    name: 'Webcam Logitech C920 Pro',
+    description: 'Webcam Full HD 1080p com autofoco',
+    price: 349,
+    stock: 18,
+    createdAt: '2026-01-12T00:00:00Z',
+  },
+  {
+    id: 7,
+    name: 'SSD Samsung 1TB NVMe',
+    description: 'SSD M.2 PCIe Gen4 com velocidade de 7000 MB/s',
+    price: 599,
+    stock: 30,
+    createdAt: '2026-01-15T00:00:00Z',
+  },
+  {
+    id: 8,
+    name: 'Hub USB-C 7 em 1',
+    description: 'Hub multiporta com HDMI, USB 3.0, leitor SD e PD 100W',
+    price: 189,
+    stock: 50,
+    createdAt: '2026-01-18T00:00:00Z',
+  },
+  {
+    id: 9,
+    name: 'Cadeira Gamer DXRacer',
+    description: 'Cadeira ergonômica com suporte lombar e apoio de braço 4D',
+    price: 1899,
+    stock: 7,
+    createdAt: '2026-01-20T00:00:00Z',
+  },
+  {
+    id: 10,
+    name: 'Switch TP-Link TL-SG1024D',
+    description: 'Switch de rede não gerenciável 24 portas Gigabit',
+    price: 479,
+    stock: 12,
+    createdAt: '2026-01-22T00:00:00Z',
+  },
+  {
+    id: 11,
+    name: 'Roteador Asus RT-AX88U',
+    description: 'Roteador Wi-Fi 6 dual band AX6000',
+    price: 1299,
+    stock: 6,
+    createdAt: '2026-02-01T00:00:00Z',
+  },
+  {
+    id: 12,
+    name: 'Impressora HP LaserJet Pro',
+    description: 'Impressora laser monocromática com Wi-Fi e duplex automático',
+    price: 1099,
+    stock: 10,
+    createdAt: '2026-02-03T00:00:00Z',
+  },
+  {
+    id: 13,
+    name: 'Nobreak APC 1500VA',
+    description: 'Nobreak interativo com 8 tomadas e proteção completa',
+    price: 849,
+    stock: 9,
+    createdAt: '2026-02-05T00:00:00Z',
+  },
+  {
+    id: 14,
+    name: 'Cabo HDMI 2.1 — 3m',
+    description: 'Cabo HDMI 2.1 certificado para 8K60Hz e 4K120Hz',
+    price: 79,
+    stock: 100,
+    createdAt: '2026-02-08T00:00:00Z',
+  },
+  {
+    id: 15,
+    name: 'Suporte Duplo de Monitor',
+    description: 'Suporte articulado para dois monitores até 32" VESA 75/100',
+    price: 329,
+    stock: 14,
+    createdAt: '2026-02-10T00:00:00Z',
+  },
 ]
+
+let _nextProductId = produtos.length + 1
+let _nextUserId = usuarios.length + 1
 
 export const handlers = [
   http.post('/api/auth/login', async ({ request }) => {
@@ -69,7 +293,7 @@ export const handlers = [
 
   http.post('/api/products', async ({ request }) => {
     const body = (await request.json()) as Omit<Product, 'id' | 'createdAt'>
-    const novo: Product = { id: 3, ...body, createdAt: new Date().toISOString() }
+    const novo: Product = { id: _nextProductId++, ...body, createdAt: new Date().toISOString() }
     return HttpResponse.json(novo, { status: 201 })
   }),
 
@@ -96,7 +320,12 @@ export const handlers = [
 
   http.post('/api/users', async ({ request }) => {
     const body = (await request.json()) as Omit<User, 'id' | 'createdAt' | 'isActive'>
-    const novo: User = { id: 3, ...body, isActive: true, createdAt: new Date().toISOString() }
+    const novo: User = {
+      id: _nextUserId++,
+      ...body,
+      isActive: true,
+      createdAt: new Date().toISOString(),
+    }
     return HttpResponse.json(novo, { status: 201 })
   }),
 

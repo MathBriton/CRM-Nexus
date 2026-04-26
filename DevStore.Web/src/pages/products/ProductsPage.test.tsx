@@ -16,7 +16,7 @@ describe('ProductsPage', () => {
 
   it('exibe a lista de produtos', async () => {
     renderPage()
-    await waitFor(() => expect(screen.getByText('Notebook')).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByText('Notebook Dell G15')).toBeInTheDocument())
   })
 
   it('exibe formulário ao clicar em Novo Produto', async () => {
@@ -32,9 +32,9 @@ describe('ProductsPage', () => {
     const user = userEvent.setup()
     renderPage()
 
-    await waitFor(() => screen.getByText('Notebook'))
+    await waitFor(() => screen.getByText('Notebook Dell G15'))
     await user.click(screen.getAllByRole('button', { name: /editar/i })[0])
 
-    expect(screen.getByLabelText(/nome/i)).toHaveValue('Notebook')
+    expect(screen.getByLabelText(/nome/i)).toHaveValue('Notebook Dell G15')
   })
 })

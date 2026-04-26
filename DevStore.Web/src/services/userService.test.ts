@@ -5,7 +5,7 @@ import { usuarios } from '../test/handlers'
 describe('userService', () => {
   it('listar: retorna todos os usuários', async () => {
     const resultado = await userService.listar()
-    expect(resultado).toHaveLength(2)
+    expect(resultado).toHaveLength(15)
     expect(resultado[0].username).toBe('admin')
   })
 

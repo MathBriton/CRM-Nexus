@@ -47,7 +47,7 @@ describe('App — roteamento', () => {
   it('exibe dashboard ao acessar /products autenticado', async () => {
     autenticar()
     renderApp('/products')
-    await waitFor(() => expect(screen.getByText('Notebook')).toBeInTheDocument())
+    await waitFor(() => expect(screen.getByText('Notebook Dell G15')).toBeInTheDocument())
     expect(screen.getByRole('button', { name: /produtos/i })).toBeInTheDocument()
   })
 

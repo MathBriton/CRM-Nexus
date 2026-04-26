@@ -169,7 +169,7 @@ export function Sidebar() {
             )
           }
         >
-          <LayoutDashboard className="h-4 w-4 shrink-0" />
+          <LayoutDashboard className="h-4 w-4 shrink-0 text-violet-500 [filter:brightness(1.2)_drop-shadow(0_0_6px_currentColor)]" />
           Dashboard
         </NavLink>
 
@@ -191,7 +191,12 @@ export function Sidebar() {
                     : 'text-muted-foreground hover:bg-muted hover:text-foreground',
                 )}
               >
-                <cat.icon className={cn('h-4 w-4 shrink-0', cat.corIcon)} />
+                <cat.icon
+                  className={cn(
+                    'h-4 w-4 shrink-0 [filter:brightness(1.2)_drop-shadow(0_0_6px_currentColor)]',
+                    cat.corIcon,
+                  )}
+                />
                 <span className="flex-1 truncate text-left">{cat.label}</span>
                 <ChevronDown
                   className={cn(

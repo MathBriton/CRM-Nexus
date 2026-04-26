@@ -22,13 +22,13 @@ describe('productService', () => {
 
   it('listar: retorna todos os produtos', async () => {
     const resultado = await productService.listar()
-    expect(resultado).toHaveLength(2)
-    expect(resultado[0].name).toBe('Notebook')
+    expect(resultado).toHaveLength(15)
+    expect(resultado[0].name).toBe('Notebook Dell G15')
   })
 
   it('buscarPorId: retorna produto existente', async () => {
     const resultado = await productService.buscarPorId(1)
-    expect(resultado.name).toBe('Notebook')
+    expect(resultado.name).toBe('Notebook Dell G15')
   })
 
   it('buscarPorId: lança erro para id inexistente', async () => {
