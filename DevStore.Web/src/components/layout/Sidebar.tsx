@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { NavLink, Link, useLocation, useNavigate } from 'react-router-dom'
 import {
-  LayoutDashboard, PackageCheck, DollarSign,
-  FlaskConical, FileText, Users, Shield, LogOut, ChevronDown, Package,
+  LayoutDashboard, Package, PackageCheck, DollarSign,
+  FlaskConical, FileText, Users, Shield, LogOut, ChevronDown,
+  Sun, Moon,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/contexts/AuthContext'
+import { useTheme } from '@/contexts/ThemeContext'
 import { cn } from '@/lib/utils'
 
 interface SubMenu {
@@ -102,6 +104,7 @@ export function Sidebar() {
   const { user, logout } = useAuth()
   const navigate = useNavigate()
   const { pathname } = useLocation()
+  const { theme, toggleTheme } = useTheme()
 
   const [aberto, setAberto] = useState<string | null>(() => {
     const ativa = categorias.find(c => pathname.startsWith(c.path))
@@ -119,17 +122,30 @@ export function Sidebar() {
 
   return (
     <aside className="flex h-full w-60 flex-col border-r bg-card">
-      <Link
-        to="/dashboard"
-        className="flex items-center gap-2 px-6 py-5 border-b hover:bg-muted/50 transition-colors"
-        aria-label="Ir para o dashboard"
-      >
-        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-purple-500 to-violet-700 text-white text-sm font-extrabold select-none shadow-sm">
-          N
-        </span>
-        <span className="font-bold text-lg">Nexus</span>
-      </Link>
 
+      {/* ── Brand ─────────────────────────────────────────────────────────── */}
+      <div className="relative overflow-hidden border-b">
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-purple-600/20 via-violet-700/10 to-transparent" />
+        <Link
+          to="/dashboard"
+          className="relative flex items-center gap-3 px-5 py-4 transition-opacity hover:opacity-90"
+          aria-label="Ir para o dashboard"
+        >
+          <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-violet-700 shadow-md shadow-purple-500/30">
+            <span className="select-none text-base font-extrabold tracking-tight text-white">N</span>
+          </div>
+          <div className="flex flex-col leading-none">
+            <span className="bg-gradient-to-r from-purple-400 to-violet-300 bg-clip-text text-base font-bold text-transparent">
+              Nexus
+            </span>
+            <span className="mt-0.5 text-[10px] uppercase tracking-widest text-muted-foreground">
+              Sistema de Gestão
+            </span>
+          </div>
+        </Link>
+      </div>
+
+      {/* ── Navegação ─────────────────────────────────────────────────────── */}
       <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-0.5">
         {/* Dashboard */}
         <NavLink
@@ -147,44 +163,34 @@ export function Sidebar() {
           Dashboard
         </NavLink>
 
-        {/* Categorias com accordion */}
+        {/* Categorias com accordion exclusivo */}
         {categorias.map(cat => {
           const estaAberto = aberto === cat.label
+          const estaAtivo = pathname.startsWith(cat.path)
+
           return (
             <div key={cat.path}>
-              {/* Linha da categoria: NavLink + botão chevron */}
-              <div className="relative flex items-center">
-                <NavLink
-                  to={cat.path}
-                  end={false}
-                  onClick={() => { if (!estaAberto) toggleCategoria(cat.label) }}
-                  className={({ isActive }) =>
-                    cn(
-                      'flex flex-1 items-center gap-3 rounded-md px-3 py-2 pr-8 text-sm font-medium transition-colors',
-                      isActive
-                        ? 'bg-primary/10 text-foreground font-semibold'
-                        : 'text-muted-foreground hover:bg-muted hover:text-foreground',
-                    )
-                  }
-                >
-                  <cat.icon className={cn('h-4 w-4 shrink-0', cat.corIcon)} />
-                  <span className="truncate">{cat.label}</span>
-                </NavLink>
-
-                <button
-                  onClick={() => toggleCategoria(cat.label)}
-                  className="absolute right-1 p-1 rounded text-muted-foreground hover:text-foreground transition-colors"
-                  aria-label={`Expandir ${cat.label}`}
-                  aria-expanded={estaAberto}
-                >
-                  <ChevronDown
-                    className={cn(
-                      'h-3.5 w-3.5 transition-transform duration-200',
-                      estaAberto && 'rotate-180',
-                    )}
-                  />
-                </button>
-              </div>
+              {/* Botão da categoria — apenas abre/fecha dropdown, sem navegar */}
+              <button
+                onClick={() => toggleCategoria(cat.label)}
+                aria-expanded={estaAberto}
+                className={cn(
+                  'flex w-full items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors',
+                  estaAberto || estaAtivo
+                    ? 'bg-primary/10 text-foreground font-semibold'
+                    : 'text-muted-foreground hover:bg-muted hover:text-foreground',
+                )}
+              >
+                <cat.icon className={cn('h-4 w-4 shrink-0', cat.corIcon)} />
+                <span className="flex-1 truncate text-left">{cat.label}</span>
+                <ChevronDown
+                  className={cn(
+                    'h-3.5 w-3.5 shrink-0 transition-transform duration-200',
+                    estaAberto && 'rotate-180',
+                  )}
+                  aria-hidden="true"
+                />
+              </button>
 
               {/* Sub-menus */}
               {estaAberto && (
@@ -212,11 +218,24 @@ export function Sidebar() {
         })}
       </nav>
 
-      <div className="border-t px-4 py-3 flex items-center justify-between">
-        <span className="text-sm font-medium truncate">{user?.name}</span>
-        <Button variant="ghost" size="icon" onClick={handleLogout} aria-label="Sair">
-          <LogOut className="h-4 w-4" />
-        </Button>
+      {/* ── Rodapé: usuário + dark mode + logout ─────────────────────────── */}
+      <div className="border-t px-4 py-3 flex items-center justify-between gap-2">
+        <span className="min-w-0 text-sm font-medium truncate">{user?.name}</span>
+        <div className="flex items-center gap-0.5 shrink-0">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? 'Mudar para modo claro' : 'Mudar para modo escuro'}
+          >
+            {theme === 'dark'
+              ? <Sun className="h-4 w-4" />
+              : <Moon className="h-4 w-4" />}
+          </Button>
+          <Button variant="ghost" size="icon" onClick={handleLogout} aria-label="Sair">
+            <LogOut className="h-4 w-4" />
+          </Button>
+        </div>
       </div>
     </aside>
   )

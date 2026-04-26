@@ -32,7 +32,7 @@ export function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-muted/40">
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
-          <CardTitle className="text-2xl">DevStore</CardTitle>
+          <CardTitle className="text-2xl">Nexus</CardTitle>
           <p className="text-sm text-muted-foreground">Entre com suas credenciais</p>
         </CardHeader>
         <CardContent>

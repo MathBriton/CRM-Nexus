@@ -11,12 +11,15 @@ import userEvent from '@testing-library/user-event'
 import { render } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import App from './App'
+import { ThemeProvider } from './contexts/ThemeContext'
 
 function renderApp(route = '/login') {
   return render(
-    <MemoryRouter initialEntries={[route]}>
-      <App />
-    </MemoryRouter>
+    <ThemeProvider>
+      <MemoryRouter initialEntries={[route]}>
+        <App />
+      </MemoryRouter>
+    </ThemeProvider>
   )
 }
 
@@ -28,7 +31,7 @@ function autenticar() {
 describe('App — roteamento', () => {
   it('exibe login ao acessar rota desconhecida sem autenticação', () => {
     renderApp('/qualquer-coisa')
-    expect(screen.getByRole('heading', { name: /devstore/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /nexus/i })).toBeInTheDocument()
     expect(screen.getByLabelText(/usuário/i)).toBeInTheDocument()
   })
 
@@ -41,18 +44,18 @@ describe('App — roteamento', () => {
     autenticar()
     renderApp('/products')
     await waitFor(() => expect(screen.getByText('Notebook')).toBeInTheDocument())
-    expect(screen.getByRole('link', { name: /produtos/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /produtos/i })).toBeInTheDocument()
   })
 
-  it('navega para /financial via sidebar', async () => {
+  it('abre sub-menu de Financeiro via sidebar', async () => {
     autenticar()
     const user = userEvent.setup()
     renderApp('/products')
 
-    await waitFor(() => screen.getByRole('link', { name: /financeiro/i }))
-    await user.click(screen.getByRole('link', { name: /financeiro/i }))
+    await waitFor(() => screen.getByRole('button', { name: /financeiro/i }))
+    await user.click(screen.getByRole('button', { name: /financeiro/i }))
 
-    expect(screen.getByRole('heading', { name: /financeiro/i })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /contas a pagar/i })).toBeInTheDocument()
   })
 
   it('redireciona para /login após logout', async () => {

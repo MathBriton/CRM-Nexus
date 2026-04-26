@@ -18,7 +18,7 @@ describe('LoginPage', () => {
 
   it('exibe o nome do sistema', () => {
     renderLogin()
-    expect(screen.getByRole('heading', { name: /devstore/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { name: /nexus/i })).toBeInTheDocument()
   })
 
   it('exibe erro com credenciais inválidas', async () => {

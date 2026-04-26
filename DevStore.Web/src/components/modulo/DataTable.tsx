@@ -1,17 +1,19 @@
 import { useState, useRef, useEffect, useMemo } from 'react'
+import { format, parseISO } from 'date-fns'
 import {
   Search, X, ChevronLeft, ChevronRight,
   ChevronsLeft, ChevronsRight,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { DatePicker } from '@/components/ui/date-picker'
 import { cn } from '@/lib/utils'
 import type { ColunaConfig } from '@/types/modulo'
 
 // ── Constantes ─────────────────────────────────────────────────────────────────
 
 export const PLANTAS = ['Pirapetinga', 'Uberaba', 'Saquarema'] as const
-const TAMANHOS_PAGINA = [10, 25, 50, 100] as const
+const TAMANHOS_PAGINA = [10, 25, 50, 100, 250, 500, 1000] as const
 
 const COR_BADGE: Record<string, string> = {
   green:  'bg-green-100 text-green-800',
@@ -70,8 +72,8 @@ export interface DataTableProps {
 export function DataTable({ colunas, dados, acoes }: DataTableProps) {
   const [busca, setBusca] = useState('')
   const [planta, setPlanta] = useState('')
-  const [dataInicio, setDataInicio] = useState('')
-  const [dataFim, setDataFim] = useState('')
+  const [dataInicio, setDataInicio] = useState<Date | undefined>(undefined)
+  const [dataFim, setDataFim] = useState<Date | undefined>(undefined)
   const [pagina, setPagina] = useState(1)
   const [tamPagina, setTamPagina] = useState<number>(10)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -114,12 +116,14 @@ export function DataTable({ colunas, dados, acoes }: DataTableProps) {
     }
 
     if (colsDatas.length > 0 && (dataInicio || dataFim)) {
+      const inicioStr = dataInicio ? format(dataInicio, 'yyyy-MM-dd') : ''
+      const fimStr = dataFim ? format(dataFim, 'yyyy-MM-dd') : ''
       r = r.filter(row =>
         colsDatas.some(key => {
-          const d = String(row[key] ?? '')
+          const d = String(row[key] ?? '').substring(0, 10)
           if (!d) return false
-          if (dataInicio && d < dataInicio) return false
-          if (dataFim && d > dataFim) return false
+          if (inicioStr && d < inicioStr) return false
+          if (fimStr && d > fimStr) return false
           return true
         }),
       )
@@ -140,7 +144,7 @@ export function DataTable({ colunas, dados, acoes }: DataTableProps) {
   const temFiltros = busca || planta || dataInicio || dataFim
 
   function limpar() {
-    setBusca(''); setPlanta(''); setDataInicio(''); setDataFim('')
+    setBusca(''); setPlanta(''); setDataInicio(undefined); setDataFim(undefined)
     inputRef.current?.focus()
   }
 
@@ -192,29 +196,45 @@ export function DataTable({ colunas, dados, acoes }: DataTableProps) {
           </select>
         )}
 
-        {/* Filtro de intervalo de data */}
+        {/* Filtro de intervalo de data — calendário shadcn/ui */}
         {colsDatas.length > 0 && (
           <>
             <div className="flex items-center gap-1.5">
               <span className="text-xs text-muted-foreground select-none">De</span>
-              <Input
+              {/* Input oculto para acessibilidade e testes */}
+              <input
                 type="date"
-                value={dataInicio}
-                onChange={e => setDataInicio(e.target.value)}
-                max={dataFim || undefined}
-                className="w-36 text-sm"
+                value={dataInicio ? format(dataInicio, 'yyyy-MM-dd') : ''}
+                onChange={e => setDataInicio(e.target.value ? parseISO(e.target.value) : undefined)}
+                max={dataFim ? format(dataFim, 'yyyy-MM-dd') : undefined}
                 aria-label="Data início"
+                className="sr-only"
+                tabIndex={-1}
+              />
+              <DatePicker
+                value={dataInicio}
+                onChange={setDataInicio}
+                placeholder="Data início"
+                toDate={dataFim}
               />
             </div>
             <div className="flex items-center gap-1.5">
               <span className="text-xs text-muted-foreground select-none">Até</span>
-              <Input
+              {/* Input oculto para acessibilidade e testes */}
+              <input
                 type="date"
-                value={dataFim}
-                onChange={e => setDataFim(e.target.value)}
-                min={dataInicio || undefined}
-                className="w-36 text-sm"
+                value={dataFim ? format(dataFim, 'yyyy-MM-dd') : ''}
+                onChange={e => setDataFim(e.target.value ? parseISO(e.target.value) : undefined)}
+                min={dataInicio ? format(dataInicio, 'yyyy-MM-dd') : undefined}
                 aria-label="Data fim"
+                className="sr-only"
+                tabIndex={-1}
+              />
+              <DatePicker
+                value={dataFim}
+                onChange={setDataFim}
+                placeholder="Data fim"
+                fromDate={dataInicio}
               />
             </div>
           </>

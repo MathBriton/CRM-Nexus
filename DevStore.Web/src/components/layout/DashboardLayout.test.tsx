@@ -21,7 +21,7 @@ function renderDashboard(route = '/products') {
 describe('DashboardLayout', () => {
   it('exibe a sidebar de navegação', () => {
     renderDashboard()
-    expect(screen.getByRole('link', { name: /produtos/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /produtos/i })).toBeInTheDocument()
   })
 
   it('renderiza o conteúdo da rota filha', () => {
