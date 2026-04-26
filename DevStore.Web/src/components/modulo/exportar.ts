@@ -13,8 +13,8 @@ export function exportarPDF(
   doc.text(titulo, 14, 16)
   autoTable(doc, {
     startY: 24,
-    head: [colunas.map(c => c.label)],
-    body: dados.map(row => colunas.map(c => String(row[c.key] ?? ''))),
+    head: [colunas.map((c) => c.label)],
+    body: dados.map((row) => colunas.map((c) => String(row[c.key] ?? ''))),
     styles: { fontSize: 9 },
     headStyles: { fillColor: [30, 30, 30] },
   })
@@ -27,9 +27,7 @@ export function exportarExcel(
   dados: Record<string, unknown>[],
 ) {
   const ws = XLSX.utils.json_to_sheet(
-    dados.map(row =>
-      Object.fromEntries(colunas.map(c => [c.label, row[c.key] ?? ''])),
-    ),
+    dados.map((row) => Object.fromEntries(colunas.map((c) => [c.label, row[c.key] ?? '']))),
   )
   const wb = XLSX.utils.book_new()
   XLSX.utils.book_append_sheet(wb, ws, titulo.slice(0, 31))

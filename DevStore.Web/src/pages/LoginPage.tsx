@@ -29,16 +29,16 @@ export function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-muted/40">
+    <div className="bg-muted/40 flex min-h-screen items-center justify-center">
       <Card className="w-full max-w-sm">
         <CardHeader className="text-center">
           <CardTitle className="text-2xl">Nexus</CardTitle>
-          <p className="text-sm text-muted-foreground">Entre com suas credenciais</p>
+          <p className="text-muted-foreground text-sm">Entre com suas credenciais</p>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             {erro && (
-              <p role="alert" className="text-sm text-destructive text-center">
+              <p role="alert" className="text-destructive text-center text-sm">
                 {erro}
               </p>
             )}

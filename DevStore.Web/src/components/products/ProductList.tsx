@@ -54,7 +54,7 @@ export function ProductList({ onEditar }: Props) {
           <TableBody>
             {produtos.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={5} className="text-center text-muted-foreground py-8">
+                <TableCell colSpan={5} className="text-muted-foreground py-8 text-center">
                   Nenhum produto cadastrado.
                 </TableCell>
               </TableRow>
@@ -62,7 +62,7 @@ export function ProductList({ onEditar }: Props) {
               produtos.map((produto) => (
                 <TableRow key={produto.id}>
                   <TableCell className="font-medium">{produto.name}</TableCell>
-                  <TableCell className="hidden sm:table-cell text-muted-foreground">
+                  <TableCell className="text-muted-foreground hidden sm:table-cell">
                     {produto.description}
                   </TableCell>
                   <TableCell>
@@ -73,12 +73,8 @@ export function ProductList({ onEditar }: Props) {
                       {produto.stock} em estoque
                     </Badge>
                   </TableCell>
-                  <TableCell className="text-right space-x-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => onEditar?.(produto)}
-                    >
+                  <TableCell className="space-x-2 text-right">
+                    <Button variant="outline" size="sm" onClick={() => onEditar?.(produto)}>
                       Editar
                     </Button>
                     <Button

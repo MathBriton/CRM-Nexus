@@ -49,7 +49,11 @@ export function ProductForm({ produto, onSucesso }: Props) {
 
           <div className="space-y-1">
             <Label htmlFor="descricao">Descrição</Label>
-            <Input id="descricao" value={descricao} onChange={(e) => setDescricao(e.target.value)} />
+            <Input
+              id="descricao"
+              value={descricao}
+              onChange={(e) => setDescricao(e.target.value)}
+            />
           </div>
 
           <div className="space-y-1">
@@ -77,15 +81,17 @@ export function ProductForm({ produto, onSucesso }: Props) {
             />
           </div>
 
-          <div className="sm:col-span-2 flex justify-end">
+          <div className="flex justify-end sm:col-span-2">
             {enviando ? (
-              <Button type="submit" disabled>Salvando...</Button>
+              <Button type="submit" disabled>
+                Salvando...
+              </Button>
             ) : produto ? (
               <Button type="submit">Salvar alterações</Button>
             ) : (
               <Button
                 type="submit"
-                className="bg-green-600 hover:bg-green-700 active:bg-green-800 text-white border-0 gap-1.5"
+                className="gap-1.5 border-0 bg-green-600 text-white hover:bg-green-700 active:bg-green-800"
               >
                 <Plus className="h-4 w-4" aria-hidden="true" />
                 Criar

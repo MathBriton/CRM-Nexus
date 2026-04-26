@@ -13,7 +13,7 @@ describe('productService', () => {
       http.get('/api/products', ({ request }) => {
         authHeader = request.headers.get('Authorization')
         return HttpResponse.json([])
-      })
+      }),
     )
 
     await productService.listar()
@@ -53,13 +53,13 @@ describe('productService', () => {
         description: 'Atualizado',
         price: 5999,
         stock: 5,
-      })
+      }),
     ).resolves.toBeUndefined()
   })
 
   it('atualizar: lança erro para id inexistente', async () => {
     await expect(
-      productService.atualizar(999, { name: 'X', description: 'X', price: 1, stock: 1 })
+      productService.atualizar(999, { name: 'X', description: 'X', price: 1, stock: 1 }),
     ).rejects.toThrow()
   })
 

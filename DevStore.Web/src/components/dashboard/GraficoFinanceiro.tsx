@@ -1,7 +1,13 @@
 import { useState } from 'react'
 import {
-  ResponsiveContainer, AreaChart, Area,
-  XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  ResponsiveContainer,
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
 } from 'recharts'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { dadosFinanceiros, periodos } from '@/data/dashboardMock'
@@ -9,7 +15,11 @@ import type { PeriodoFinanceiro } from '@/data/dashboardMock'
 import { cn } from '@/lib/utils'
 
 function formatarReais(valor: number) {
-  return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL', maximumFractionDigits: 0 })
+  return valor.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+    maximumFractionDigits: 0,
+  })
 }
 
 export function GraficoFinanceiro() {
@@ -23,7 +33,7 @@ export function GraficoFinanceiro() {
   return (
     <Card>
       <CardHeader>
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
           <CardTitle>Receita vs Despesa</CardTitle>
 
           <div className="flex flex-wrap gap-1" role="group" aria-label="Selecionar período">
@@ -36,7 +46,7 @@ export function GraficoFinanceiro() {
                   'rounded-md px-3 py-1 text-xs font-medium transition-colors',
                   periodo === p.valor
                     ? 'bg-primary text-primary-foreground'
-                    : 'bg-muted text-muted-foreground hover:bg-muted/80'
+                    : 'bg-muted text-muted-foreground hover:bg-muted/80',
                 )}
               >
                 {p.label}
@@ -47,16 +57,21 @@ export function GraficoFinanceiro() {
 
         <div className="flex gap-6 pt-2">
           <div>
-            <p className="text-xs text-muted-foreground">Receita</p>
+            <p className="text-muted-foreground text-xs">Receita</p>
             <p className="text-lg font-semibold text-green-600">{formatarReais(totalReceita)}</p>
           </div>
           <div>
-            <p className="text-xs text-muted-foreground">Despesa</p>
+            <p className="text-muted-foreground text-xs">Despesa</p>
             <p className="text-lg font-semibold text-red-500">{formatarReais(totalDespesa)}</p>
           </div>
           <div>
-            <p className="text-xs text-muted-foreground">Resultado</p>
-            <p className={cn('text-lg font-semibold', resultado >= 0 ? 'text-green-600' : 'text-red-500')}>
+            <p className="text-muted-foreground text-xs">Resultado</p>
+            <p
+              className={cn(
+                'text-lg font-semibold',
+                resultado >= 0 ? 'text-green-600' : 'text-red-500',
+              )}
+            >
               {formatarReais(resultado)}
             </p>
           </div>
@@ -79,7 +94,11 @@ export function GraficoFinanceiro() {
               </defs>
               <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
               <XAxis dataKey="label" tick={{ fontSize: 12 }} />
-              <YAxis tickFormatter={(v) => `R$${(v / 1000).toFixed(0)}k`} tick={{ fontSize: 11 }} width={52} />
+              <YAxis
+                tickFormatter={(v) => `R$${(v / 1000).toFixed(0)}k`}
+                tick={{ fontSize: 11 }}
+                width={52}
+              />
               <Tooltip
                 formatter={(value, name) => [
                   formatarReais(Number(value ?? 0)),
@@ -87,8 +106,20 @@ export function GraficoFinanceiro() {
                 ]}
               />
               <Legend formatter={(v) => (v === 'receita' ? 'Receita' : 'Despesa')} />
-              <Area type="monotone" dataKey="receita" stroke="#22c55e" fill="url(#gradReceita)" strokeWidth={2} />
-              <Area type="monotone" dataKey="despesa" stroke="#ef4444" fill="url(#gradDespesa)" strokeWidth={2} />
+              <Area
+                type="monotone"
+                dataKey="receita"
+                stroke="#22c55e"
+                fill="url(#gradReceita)"
+                strokeWidth={2}
+              />
+              <Area
+                type="monotone"
+                dataKey="despesa"
+                stroke="#ef4444"
+                fill="url(#gradDespesa)"
+                strokeWidth={2}
+              />
             </AreaChart>
           </ResponsiveContainer>
         </div>

@@ -3,8 +3,12 @@ import { describe, it, expect, vi } from 'vitest'
 vi.mock('recharts', () => ({
   ResponsiveContainer: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
   AreaChart: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
-  Area: () => null, XAxis: () => null, YAxis: () => null,
-  CartesianGrid: () => null, Tooltip: () => null, Legend: () => null,
+  Area: () => null,
+  XAxis: () => null,
+  YAxis: () => null,
+  CartesianGrid: () => null,
+  Tooltip: () => null,
+  Legend: () => null,
 }))
 import { screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
@@ -19,7 +23,7 @@ function renderApp(route = '/login') {
       <MemoryRouter initialEntries={[route]}>
         <App />
       </MemoryRouter>
-    </ThemeProvider>
+    </ThemeProvider>,
   )
 }
 
@@ -72,6 +76,8 @@ describe('App — roteamento', () => {
   it('redireciona / para /dashboard quando autenticado', async () => {
     autenticar()
     renderApp('/')
-    await waitFor(() => expect(screen.getByRole('heading', { name: /visão geral/i })).toBeInTheDocument())
+    await waitFor(() =>
+      expect(screen.getByRole('heading', { name: /visão geral/i })).toBeInTheDocument(),
+    )
   })
 })

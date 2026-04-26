@@ -31,7 +31,7 @@ async function criar(dados: CreateProductRequest): Promise<Product> {
       method: 'POST',
       headers: authHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify(dados),
-    })
+    }),
   )
   return res.json()
 }
@@ -42,7 +42,7 @@ async function atualizar(id: number, dados: UpdateProductRequest): Promise<void>
       method: 'PUT',
       headers: authHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify(dados),
-    })
+    }),
   )
 }
 

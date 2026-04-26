@@ -6,7 +6,9 @@ import { DashboardPage } from './DashboardPage'
 
 vi.mock('recharts', () => ({
   ResponsiveContainer: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
-  AreaChart: ({ children }: { children: React.ReactNode }) => <div data-testid="area-chart">{children}</div>,
+  AreaChart: ({ children }: { children: React.ReactNode }) => (
+    <div data-testid="area-chart">{children}</div>
+  ),
   Area: () => null,
   XAxis: () => null,
   YAxis: () => null,

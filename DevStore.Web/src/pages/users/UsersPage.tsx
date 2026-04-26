@@ -5,10 +5,7 @@ import { UserList } from '@/components/users/UserList'
 import { UserForm } from '@/components/users/UserForm'
 import type { User } from '@/types/user'
 
-type EstadoFormulario =
-  | { modo: 'criar' }
-  | { modo: 'editar'; usuario: User }
-  | null
+type EstadoFormulario = { modo: 'criar' } | { modo: 'editar'; usuario: User } | null
 
 export function UsersPage() {
   const [formulario, setFormulario] = useState<EstadoFormulario>(null)
@@ -35,7 +32,7 @@ export function UsersPage() {
           <Button
             size="sm"
             onClick={() => setFormulario({ modo: 'criar' })}
-            className="bg-green-600 hover:bg-green-700 active:bg-green-800 text-white border-0 gap-1.5 shadow-sm"
+            className="gap-1.5 border-0 bg-green-600 text-white shadow-sm hover:bg-green-700 active:bg-green-800"
           >
             <Plus className="h-4 w-4" aria-hidden="true" />
             Criar

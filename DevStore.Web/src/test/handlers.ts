@@ -5,18 +5,48 @@ import type { User } from '../types/user'
 export const usuarioAdmin = { id: 1, name: 'Admin', username: 'admin' }
 
 export const usuarios: User[] = [
-  { id: 1, username: 'admin', name: 'Administrador', email: 'admin@devstore.com', role: 'Admin', isActive: true, createdAt: '2026-01-01T00:00:00Z' },
-  { id: 2, username: 'gerente', name: 'Gerente', email: 'gerente@devstore.com', role: 'Manager', isActive: true, createdAt: '2026-01-02T00:00:00Z' },
+  {
+    id: 1,
+    username: 'admin',
+    name: 'Administrador',
+    email: 'admin@devstore.com',
+    role: 'Admin',
+    isActive: true,
+    createdAt: '2026-01-01T00:00:00Z',
+  },
+  {
+    id: 2,
+    username: 'gerente',
+    name: 'Gerente',
+    email: 'gerente@devstore.com',
+    role: 'Manager',
+    isActive: true,
+    createdAt: '2026-01-02T00:00:00Z',
+  },
 ]
 
 export const produtos: Product[] = [
-  { id: 1, name: 'Notebook', description: 'Notebook gamer', price: 4999, stock: 10, createdAt: '2026-01-01T00:00:00Z' },
-  { id: 2, name: 'Mouse', description: 'Mouse sem fio', price: 199, stock: 50, createdAt: '2026-01-02T00:00:00Z' },
+  {
+    id: 1,
+    name: 'Notebook',
+    description: 'Notebook gamer',
+    price: 4999,
+    stock: 10,
+    createdAt: '2026-01-01T00:00:00Z',
+  },
+  {
+    id: 2,
+    name: 'Mouse',
+    description: 'Mouse sem fio',
+    price: 199,
+    stock: 50,
+    createdAt: '2026-01-02T00:00:00Z',
+  },
 ]
 
 export const handlers = [
   http.post('/api/auth/login', async ({ request }) => {
-    const { username, password } = await request.json() as { username: string; password: string }
+    const { username, password } = (await request.json()) as { username: string; password: string }
     if (username === 'admin' && password === 'admin123') {
       return HttpResponse.json({
         token: 'fake-jwt-token',
@@ -38,7 +68,7 @@ export const handlers = [
   }),
 
   http.post('/api/products', async ({ request }) => {
-    const body = await request.json() as Omit<Product, 'id' | 'createdAt'>
+    const body = (await request.json()) as Omit<Product, 'id' | 'createdAt'>
     const novo: Product = { id: 3, ...body, createdAt: new Date().toISOString() }
     return HttpResponse.json(novo, { status: 201 })
   }),
@@ -65,7 +95,7 @@ export const handlers = [
   }),
 
   http.post('/api/users', async ({ request }) => {
-    const body = await request.json() as Omit<User, 'id' | 'createdAt' | 'isActive'>
+    const body = (await request.json()) as Omit<User, 'id' | 'createdAt' | 'isActive'>
     const novo: User = { id: 3, ...body, isActive: true, createdAt: new Date().toISOString() }
     return HttpResponse.json(novo, { status: 201 })
   }),

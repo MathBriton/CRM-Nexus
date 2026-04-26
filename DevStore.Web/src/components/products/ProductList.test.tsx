@@ -33,9 +33,7 @@ describe('ProductList', () => {
     const botoes = screen.getAllByRole('button', { name: /excluir/i })
     await user.click(botoes[0])
 
-    await waitFor(() =>
-      expect(screen.queryByText('Notebook')).not.toBeInTheDocument()
-    )
+    await waitFor(() => expect(screen.queryByText('Notebook')).not.toBeInTheDocument())
   })
 
   it('chama onEditar ao clicar em editar', async () => {

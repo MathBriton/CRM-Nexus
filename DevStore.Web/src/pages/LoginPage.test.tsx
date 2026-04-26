@@ -30,7 +30,7 @@ describe('LoginPage', () => {
     await user.click(screen.getByRole('button', { name: /entrar/i }))
 
     await waitFor(() =>
-      expect(screen.getByRole('alert')).toHaveTextContent(/credenciais inválidas/i)
+      expect(screen.getByRole('alert')).toHaveTextContent(/credenciais inválidas/i),
     )
   })
 

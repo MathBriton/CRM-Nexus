@@ -1,9 +1,6 @@
 import { useState, useRef, useEffect, useMemo } from 'react'
 import { format, parseISO } from 'date-fns'
-import {
-  Search, X, ChevronLeft, ChevronRight,
-  ChevronsLeft, ChevronsRight,
-} from 'lucide-react'
+import { Search, X, ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { DatePicker } from '@/components/ui/date-picker'
@@ -16,13 +13,13 @@ export const PLANTAS = ['Pirapetinga', 'Uberaba', 'Saquarema'] as const
 const TAMANHOS_PAGINA = [10, 25, 50, 100, 250, 500, 1000] as const
 
 const COR_BADGE: Record<string, string> = {
-  green:  'bg-green-100 text-green-800',
-  red:    'bg-red-100 text-red-800',
+  green: 'bg-green-100 text-green-800',
+  red: 'bg-red-100 text-red-800',
   yellow: 'bg-yellow-100 text-yellow-800',
-  blue:   'bg-blue-100 text-blue-800',
+  blue: 'bg-blue-100 text-blue-800',
   orange: 'bg-orange-100 text-orange-800',
-  gray:   'bg-gray-100 text-gray-700',
-  cyan:   'bg-cyan-100 text-cyan-800',
+  gray: 'bg-gray-100 text-gray-700',
+  cyan: 'bg-cyan-100 text-cyan-800',
   purple: 'bg-purple-100 text-purple-800',
 }
 
@@ -31,7 +28,9 @@ const COR_BADGE: Record<string, string> = {
 function BadgeColorido({ valor, corBadge }: { valor: string; corBadge: Record<string, string> }) {
   const cls = COR_BADGE[corBadge[valor] ?? 'gray'] ?? COR_BADGE.gray
   return (
-    <span className={cn('inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium', cls)}>
+    <span
+      className={cn('inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium', cls)}
+    >
       {valor}
     </span>
   )
@@ -43,7 +42,11 @@ function formatarCelula(valor: unknown, col: ColunaConfig): React.ReactNode {
   if (col.tipo === 'badge' && col.corBadge)
     return <BadgeColorido valor={String(valor)} corBadge={col.corBadge} />
   if (col.tipo === 'data') {
-    try { return new Date(String(valor)).toLocaleDateString('pt-BR') } catch { /* noop */ }
+    try {
+      return new Date(String(valor)).toLocaleDateString('pt-BR')
+    } catch {
+      /* noop */
+    }
   }
   return String(valor)
 }
@@ -91,12 +94,14 @@ export function DataTable({ colunas, dados, acoes }: DataTableProps) {
   }, [])
 
   // ── Resetar página ao mudar filtros ─────────────────────────────────────────
-  useEffect(() => { setPagina(1) }, [busca, planta, dataInicio, dataFim, tamPagina])
+  useEffect(() => {
+    setPagina(1)
+  }, [busca, planta, dataInicio, dataFim, tamPagina])
 
   // ── Metadados dos dados ──────────────────────────────────────────────────────
-  const temPlanta = useMemo(() => dados.some(r => 'planta' in r), [dados])
+  const temPlanta = useMemo(() => dados.some((r) => 'planta' in r), [dados])
   const colsDatas = useMemo(
-    () => colunas.filter(c => c.tipo === 'data').map(c => c.key),
+    () => colunas.filter((c) => c.tipo === 'data').map((c) => c.key),
     [colunas],
   )
 
@@ -106,20 +111,24 @@ export function DataTable({ colunas, dados, acoes }: DataTableProps) {
 
     if (busca.trim()) {
       const q = busca.trim().toLowerCase()
-      r = r.filter(row =>
-        Object.values(row).some(v => String(v ?? '').toLowerCase().includes(q)),
+      r = r.filter((row) =>
+        Object.values(row).some((v) =>
+          String(v ?? '')
+            .toLowerCase()
+            .includes(q),
+        ),
       )
     }
 
     if (planta) {
-      r = r.filter(row => row.planta === planta)
+      r = r.filter((row) => row.planta === planta)
     }
 
     if (colsDatas.length > 0 && (dataInicio || dataFim)) {
       const inicioStr = dataInicio ? format(dataInicio, 'yyyy-MM-dd') : ''
       const fimStr = dataFim ? format(dataFim, 'yyyy-MM-dd') : ''
-      r = r.filter(row =>
-        colsDatas.some(key => {
+      r = r.filter((row) =>
+        colsDatas.some((key) => {
           const d = String(row[key] ?? '').substring(0, 10)
           if (!d) return false
           if (inicioStr && d < inicioStr) return false
@@ -144,7 +153,10 @@ export function DataTable({ colunas, dados, acoes }: DataTableProps) {
   const temFiltros = busca || planta || dataInicio || dataFim
 
   function limpar() {
-    setBusca(''); setPlanta(''); setDataInicio(undefined); setDataFim(undefined)
+    setBusca('')
+    setPlanta('')
+    setDataInicio(undefined)
+    setDataFim(undefined)
     inputRef.current?.focus()
   }
 
@@ -156,14 +168,16 @@ export function DataTable({ colunas, dados, acoes }: DataTableProps) {
 
   return (
     <div className="space-y-3">
-
       {/* ── Toolbar ─────────────────────────────────────────────────────────── */}
-      <div className="flex flex-wrap items-center gap-2" role="toolbar" aria-label="Filtros da tabela">
-
+      <div
+        className="flex flex-wrap items-center gap-2"
+        role="toolbar"
+        aria-label="Filtros da tabela"
+      >
         {/* Busca global */}
         <div className="relative">
           <Search
-            className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground pointer-events-none"
+            className="text-muted-foreground pointer-events-none absolute top-2.5 left-2.5 h-4 w-4"
             aria-hidden="true"
           />
           <Input
@@ -172,8 +186,8 @@ export function DataTable({ colunas, dados, acoes }: DataTableProps) {
             role="searchbox"
             placeholder="Filtrar… (Ctrl+K)"
             value={busca}
-            onChange={e => setBusca(e.target.value.slice(0, 200))}
-            className="pl-8 w-56"
+            onChange={(e) => setBusca(e.target.value.slice(0, 200))}
+            className="w-56 pl-8"
             maxLength={200}
             aria-label="Filtrar registros"
             autoComplete="off"
@@ -185,13 +199,15 @@ export function DataTable({ colunas, dados, acoes }: DataTableProps) {
         {temPlanta && (
           <select
             value={planta}
-            onChange={e => setPlanta(e.target.value)}
+            onChange={(e) => setPlanta(e.target.value)}
             className={selectCls}
             aria-label="Filtrar por planta"
           >
             <option value="">Todas as plantas</option>
-            {PLANTAS.map(p => (
-              <option key={p} value={p}>{p}</option>
+            {PLANTAS.map((p) => (
+              <option key={p} value={p}>
+                {p}
+              </option>
             ))}
           </select>
         )}
@@ -200,12 +216,14 @@ export function DataTable({ colunas, dados, acoes }: DataTableProps) {
         {colsDatas.length > 0 && (
           <>
             <div className="flex items-center gap-1.5">
-              <span className="text-xs text-muted-foreground select-none">De</span>
+              <span className="text-muted-foreground text-xs select-none">De</span>
               {/* Input oculto para acessibilidade e testes */}
               <input
                 type="date"
                 value={dataInicio ? format(dataInicio, 'yyyy-MM-dd') : ''}
-                onChange={e => setDataInicio(e.target.value ? parseISO(e.target.value) : undefined)}
+                onChange={(e) =>
+                  setDataInicio(e.target.value ? parseISO(e.target.value) : undefined)
+                }
                 max={dataFim ? format(dataFim, 'yyyy-MM-dd') : undefined}
                 aria-label="Data início"
                 className="sr-only"
@@ -219,12 +237,12 @@ export function DataTable({ colunas, dados, acoes }: DataTableProps) {
               />
             </div>
             <div className="flex items-center gap-1.5">
-              <span className="text-xs text-muted-foreground select-none">Até</span>
+              <span className="text-muted-foreground text-xs select-none">Até</span>
               {/* Input oculto para acessibilidade e testes */}
               <input
                 type="date"
                 value={dataFim ? format(dataFim, 'yyyy-MM-dd') : ''}
-                onChange={e => setDataFim(e.target.value ? parseISO(e.target.value) : undefined)}
+                onChange={(e) => setDataFim(e.target.value ? parseISO(e.target.value) : undefined)}
                 min={dataInicio ? format(dataInicio, 'yyyy-MM-dd') : undefined}
                 aria-label="Data fim"
                 className="sr-only"
@@ -246,7 +264,7 @@ export function DataTable({ colunas, dados, acoes }: DataTableProps) {
             variant="ghost"
             size="sm"
             onClick={limpar}
-            className="h-9 gap-1 text-muted-foreground"
+            className="text-muted-foreground h-9 gap-1"
             aria-label="Limpar todos os filtros"
           >
             <X className="h-3.5 w-3.5" aria-hidden="true" />
@@ -256,21 +274,21 @@ export function DataTable({ colunas, dados, acoes }: DataTableProps) {
       </div>
 
       {/* ── Tabela ──────────────────────────────────────────────────────────── */}
-      <div className="rounded-md border overflow-x-auto">
+      <div className="overflow-x-auto rounded-md border">
         <table className="w-full text-sm" aria-label="Tabela de dados">
           <thead>
-            <tr className="border-b bg-muted/50">
-              {colunas.map(c => (
+            <tr className="bg-muted/50 border-b">
+              {colunas.map((c) => (
                 <th
                   key={c.key}
                   scope="col"
-                  className="h-10 px-4 text-left font-medium text-muted-foreground whitespace-nowrap"
+                  className="text-muted-foreground h-10 px-4 text-left font-medium whitespace-nowrap"
                 >
                   {c.label}
                 </th>
               ))}
               {acoes && (
-                <th scope="col" className="h-10 px-4 text-right font-medium text-muted-foreground">
+                <th scope="col" className="text-muted-foreground h-10 px-4 text-right font-medium">
                   Ações
                 </th>
               )}
@@ -281,7 +299,7 @@ export function DataTable({ colunas, dados, acoes }: DataTableProps) {
               <tr>
                 <td
                   colSpan={colunas.length + (acoes ? 1 : 0)}
-                  className="py-10 text-center text-sm text-muted-foreground"
+                  className="text-muted-foreground py-10 text-center text-sm"
                 >
                   {temFiltros
                     ? 'Nenhum resultado para os filtros aplicados.'
@@ -290,19 +308,14 @@ export function DataTable({ colunas, dados, acoes }: DataTableProps) {
               </tr>
             ) : (
               dadosPagina.map((row, i) => (
-                <tr
-                  key={i}
-                  className="border-b last:border-0 transition-colors hover:bg-muted/30"
-                >
-                  {colunas.map(c => (
-                    <td key={c.key} className="py-2.5 px-4 whitespace-nowrap">
+                <tr key={i} className="hover:bg-muted/30 border-b transition-colors last:border-0">
+                  {colunas.map((c) => (
+                    <td key={c.key} className="px-4 py-2.5 whitespace-nowrap">
                       {formatarCelula(row[c.key], c)}
                     </td>
                   ))}
                   {acoes && (
-                    <td className="py-2 px-4 text-right whitespace-nowrap">
-                      {acoes(row)}
-                    </td>
+                    <td className="px-4 py-2 text-right whitespace-nowrap">{acoes(row)}</td>
                   )}
                 </tr>
               ))
@@ -313,31 +326,27 @@ export function DataTable({ colunas, dados, acoes }: DataTableProps) {
 
       {/* ── Rodapé: contador + tamanho de página + paginação ─────────────────── */}
       <div className="flex flex-wrap items-center justify-between gap-3">
-
         {/* Contador */}
-        <p
-          role="status"
-          aria-live="polite"
-          className="text-sm text-muted-foreground"
-        >
+        <p role="status" aria-live="polite" className="text-muted-foreground text-sm">
           {total === 0
             ? 'Nenhum registro encontrado'
             : `Exibindo ${inicio + 1}–${fim} de ${total} registro(s)`}
         </p>
 
         <div className="flex items-center gap-3">
-
           {/* Linhas por página */}
           <div className="flex items-center gap-1.5">
-            <span className="text-sm text-muted-foreground select-none">Linhas:</span>
+            <span className="text-muted-foreground text-sm select-none">Linhas:</span>
             <select
               value={tamPagina}
-              onChange={e => setTamPagina(Number(e.target.value))}
-              className={cn(selectCls, 'h-8 px-2 w-auto')}
+              onChange={(e) => setTamPagina(Number(e.target.value))}
+              className={cn(selectCls, 'h-8 w-auto px-2')}
               aria-label="Registros por página"
             >
-              {TAMANHOS_PAGINA.map(n => (
-                <option key={n} value={n}>{n}</option>
+              {TAMANHOS_PAGINA.map((n) => (
+                <option key={n} value={n}>
+                  {n}
+                </option>
               ))}
             </select>
           </div>
@@ -346,7 +355,9 @@ export function DataTable({ colunas, dados, acoes }: DataTableProps) {
           {totalPaginas > 1 && (
             <nav aria-label="Paginação" className="flex items-center gap-1">
               <Button
-                variant="outline" size="icon" className="h-8 w-8"
+                variant="outline"
+                size="icon"
+                className="h-8 w-8"
                 onClick={() => setPagina(1)}
                 disabled={paginaAtual === 1}
                 aria-label="Primeira página"
@@ -354,15 +365,17 @@ export function DataTable({ colunas, dados, acoes }: DataTableProps) {
                 <ChevronsLeft className="h-3.5 w-3.5" aria-hidden="true" />
               </Button>
               <Button
-                variant="outline" size="icon" className="h-8 w-8"
-                onClick={() => setPagina(p => Math.max(1, p - 1))}
+                variant="outline"
+                size="icon"
+                className="h-8 w-8"
+                onClick={() => setPagina((p) => Math.max(1, p - 1))}
                 disabled={paginaAtual === 1}
                 aria-label="Página anterior"
               >
                 <ChevronLeft className="h-3.5 w-3.5" aria-hidden="true" />
               </Button>
 
-              {paginas.map(n => (
+              {paginas.map((n) => (
                 <Button
                   key={n}
                   variant={n === paginaAtual ? 'default' : 'outline'}
@@ -377,15 +390,19 @@ export function DataTable({ colunas, dados, acoes }: DataTableProps) {
               ))}
 
               <Button
-                variant="outline" size="icon" className="h-8 w-8"
-                onClick={() => setPagina(p => Math.min(totalPaginas, p + 1))}
+                variant="outline"
+                size="icon"
+                className="h-8 w-8"
+                onClick={() => setPagina((p) => Math.min(totalPaginas, p + 1))}
                 disabled={paginaAtual === totalPaginas}
                 aria-label="Próxima página"
               >
                 <ChevronRight className="h-3.5 w-3.5" aria-hidden="true" />
               </Button>
               <Button
-                variant="outline" size="icon" className="h-8 w-8"
+                variant="outline"
+                size="icon"
+                className="h-8 w-8"
                 onClick={() => setPagina(totalPaginas)}
                 disabled={paginaAtual === totalPaginas}
                 aria-label="Última página"

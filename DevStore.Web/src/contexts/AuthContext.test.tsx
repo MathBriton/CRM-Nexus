@@ -17,7 +17,11 @@ function ComponenteDeTesteAuth() {
 }
 
 function renderAuth() {
-  return render(<AuthProvider><ComponenteDeTesteAuth /></AuthProvider>)
+  return render(
+    <AuthProvider>
+      <ComponenteDeTesteAuth />
+    </AuthProvider>,
+  )
 }
 
 describe('AuthContext', () => {
@@ -33,9 +37,7 @@ describe('AuthContext', () => {
 
     await user.click(screen.getByRole('button', { name: /login válido/i }))
 
-    await waitFor(() =>
-      expect(screen.getByTestId('autenticado')).toHaveTextContent('sim')
-    )
+    await waitFor(() => expect(screen.getByTestId('autenticado')).toHaveTextContent('sim'))
     expect(screen.getByTestId('usuario')).toHaveTextContent('Admin')
   })
 

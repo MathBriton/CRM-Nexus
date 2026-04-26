@@ -7,20 +7,19 @@ import type { ColunaConfig } from '@/types/modulo'
 // ── Fixtures ──────────────────────────────────────────────────────────────────
 
 const colunas: ColunaConfig[] = [
-  { key: 'nome',   label: 'Nome',   tipo: 'texto' },
-  { key: 'data',   label: 'Data',   tipo: 'data'  },
+  { key: 'nome', label: 'Nome', tipo: 'texto' },
+  { key: 'data', label: 'Data', tipo: 'data' },
   { key: 'planta', label: 'Planta', tipo: 'texto' },
-  { key: 'valor',  label: 'Valor',  tipo: 'moeda' },
-  { key: 'status', label: 'Status', tipo: 'badge',
-    corBadge: { Ativo: 'green', Inativo: 'red' } },
+  { key: 'valor', label: 'Valor', tipo: 'moeda' },
+  { key: 'status', label: 'Status', tipo: 'badge', corBadge: { Ativo: 'green', Inativo: 'red' } },
 ]
 
 const dados = [
-  { id: 1, nome: 'Alpha',   data: '2026-01-15', planta: 'Pirapetinga', valor: 100, status: 'Ativo'   },
-  { id: 2, nome: 'Beta',    data: '2026-02-20', planta: 'Uberaba',     valor: 200, status: 'Inativo' },
-  { id: 3, nome: 'Gamma',   data: '2026-03-10', planta: 'Saquarema',   valor: 300, status: 'Ativo'   },
-  { id: 4, nome: 'Delta',   data: '2026-04-05', planta: 'Pirapetinga', valor: 400, status: 'Ativo'   },
-  { id: 5, nome: 'Epsilon', data: '2026-01-28', planta: 'Uberaba',     valor: 500, status: 'Inativo' },
+  { id: 1, nome: 'Alpha', data: '2026-01-15', planta: 'Pirapetinga', valor: 100, status: 'Ativo' },
+  { id: 2, nome: 'Beta', data: '2026-02-20', planta: 'Uberaba', valor: 200, status: 'Inativo' },
+  { id: 3, nome: 'Gamma', data: '2026-03-10', planta: 'Saquarema', valor: 300, status: 'Ativo' },
+  { id: 4, nome: 'Delta', data: '2026-04-05', planta: 'Pirapetinga', valor: 400, status: 'Ativo' },
+  { id: 5, nome: 'Epsilon', data: '2026-01-28', planta: 'Uberaba', valor: 500, status: 'Inativo' },
 ]
 
 // Gera n registros para testar paginação
@@ -72,13 +71,7 @@ describe('DataTable — renderização', () => {
   })
 
   it('exibe coluna de ações quando prop acoes é fornecida', () => {
-    render(
-      <DataTable
-        colunas={colunas}
-        dados={dados}
-        acoes={() => <button>Editar</button>}
-      />,
-    )
+    render(<DataTable colunas={colunas} dados={dados} acoes={() => <button>Editar</button>} />)
     expect(screen.getByRole('columnheader', { name: /ações/i })).toBeInTheDocument()
     expect(screen.getAllByRole('button', { name: /editar/i })).toHaveLength(5)
   })
@@ -207,7 +200,7 @@ describe('DataTable — filtro de data', () => {
   })
 
   it('oculta filtros de data quando não há colunas de data', () => {
-    const colunasSemData = colunas.filter(c => c.tipo !== 'data')
+    const colunasSemData = colunas.filter((c) => c.tipo !== 'data')
     render(<DataTable colunas={colunasSemData} dados={dados} />)
     expect(screen.queryByLabelText(/data início/i)).not.toBeInTheDocument()
   })
@@ -361,7 +354,14 @@ describe('DataTable — atalho Ctrl+K', () => {
 describe('DataTable — segurança', () => {
   it('renderiza input malicioso como texto sem executar HTML', () => {
     const dadosMaliciosos = [
-      { id: 1, nome: '<script>alert(1)</script>', data: '2026-01-01', planta: 'Pirapetinga', valor: 0, status: 'Ativo' },
+      {
+        id: 1,
+        nome: '<script>alert(1)</script>',
+        data: '2026-01-01',
+        planta: 'Pirapetinga',
+        valor: 0,
+        status: 'Ativo',
+      },
     ]
     render(<DataTable colunas={colunas} dados={dadosMaliciosos} />)
     // Texto renderizado como string literal, não como HTML

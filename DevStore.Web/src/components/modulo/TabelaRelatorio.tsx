@@ -15,13 +15,13 @@ export default function TabelaRelatorio({ titulo, colunas, dados }: Props) {
     <div className="space-y-4">
       {/* Cabeçalho com botões de exportação */}
       <div className="flex items-center justify-between gap-4">
-        <p className="text-sm font-medium text-muted-foreground uppercase tracking-wide">
+        <p className="text-muted-foreground text-sm font-medium tracking-wide uppercase">
           Relatório — {titulo}
         </p>
         <div className="flex gap-2">
           <Button
             size="sm"
-            className="bg-red-600 hover:bg-red-700 active:bg-red-800 text-white border-0 gap-1.5 shadow-sm"
+            className="gap-1.5 border-0 bg-red-600 text-white shadow-sm hover:bg-red-700 active:bg-red-800"
             onClick={() => exportarPDF(titulo, colunas, dados)}
             aria-label={`Exportar ${titulo} em PDF`}
           >
@@ -30,7 +30,7 @@ export default function TabelaRelatorio({ titulo, colunas, dados }: Props) {
           </Button>
           <Button
             size="sm"
-            className="bg-green-600 hover:bg-green-700 active:bg-green-800 text-white border-0 gap-1.5 shadow-sm"
+            className="gap-1.5 border-0 bg-green-600 text-white shadow-sm hover:bg-green-700 active:bg-green-800"
             onClick={() => exportarExcel(titulo, colunas, dados)}
             aria-label={`Exportar ${titulo} em Excel`}
           >

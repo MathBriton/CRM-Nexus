@@ -1,7 +1,14 @@
 import { useEffect, useState } from 'react'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table'
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from '@/components/ui/table'
 import { userService } from '@/services/userService'
 import type { User } from '@/types/user'
 
@@ -62,16 +69,12 @@ export function UserList({ onEditar }: UserListProps) {
                 {usuario.isActive ? 'Ativo' : 'Inativo'}
               </Badge>
             </TableCell>
-            <TableCell className="text-right space-x-2">
+            <TableCell className="space-x-2 text-right">
               <Button size="sm" variant="outline" onClick={() => onEditar(usuario)}>
                 Editar
               </Button>
               {usuario.isActive && (
-                <Button
-                  size="sm"
-                  variant="destructive"
-                  onClick={() => handleDesativar(usuario.id)}
-                >
+                <Button size="sm" variant="destructive" onClick={() => handleDesativar(usuario.id)}>
                   Desativar
                 </Button>
               )}

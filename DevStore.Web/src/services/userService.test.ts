@@ -32,20 +32,16 @@ describe('userService', () => {
 
   it('atualizar: resolve sem erro para id existente', async () => {
     await expect(
-      userService.atualizar(usuarios[0].id, { name: 'Admin Atualizado', email: 'admin@dev.com' })
+      userService.atualizar(usuarios[0].id, { name: 'Admin Atualizado', email: 'admin@dev.com' }),
     ).resolves.toBeUndefined()
   })
 
   it('atualizar: lança erro para id inexistente', async () => {
-    await expect(
-      userService.atualizar(999, { name: 'X', email: 'x@dev.com' })
-    ).rejects.toThrow()
+    await expect(userService.atualizar(999, { name: 'X', email: 'x@dev.com' })).rejects.toThrow()
   })
 
   it('alterarRole: resolve sem erro para id existente', async () => {
-    await expect(
-      userService.alterarRole(usuarios[0].id, 'Manager')
-    ).resolves.toBeUndefined()
+    await expect(userService.alterarRole(usuarios[0].id, 'Manager')).resolves.toBeUndefined()
   })
 
   it('desativar: resolve sem erro para id existente', async () => {

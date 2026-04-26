@@ -12,7 +12,7 @@ describe('ProtectedRoute', () => {
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<p>Conteúdo Protegido</p>} />
         </Route>
-      </Routes>
+      </Routes>,
     )
     expect(screen.getByText('Página de Login')).toBeInTheDocument()
     expect(screen.queryByText('Conteúdo Protegido')).not.toBeInTheDocument()
@@ -28,7 +28,7 @@ describe('ProtectedRoute', () => {
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<p>Conteúdo Protegido</p>} />
         </Route>
-      </Routes>
+      </Routes>,
     )
     expect(screen.getByText('Conteúdo Protegido')).toBeInTheDocument()
     expect(screen.queryByText('Página de Login')).not.toBeInTheDocument()

@@ -14,7 +14,7 @@ function renderDashboard(route = '/products') {
         <Route path="/products" element={<p>Conteúdo Produtos</p>} />
       </Route>
     </Routes>,
-    { route }
+    { route },
   )
 }
 

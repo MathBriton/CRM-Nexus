@@ -14,6 +14,6 @@ export function renderWithProviders(ui: ReactElement, { route = '/' }: Options =
       <MemoryRouter initialEntries={[route]}>
         <AuthProvider>{ui}</AuthProvider>
       </MemoryRouter>
-    </ThemeProvider>
+    </ThemeProvider>,
   )
 }

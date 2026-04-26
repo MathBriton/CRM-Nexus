@@ -26,9 +26,9 @@ export function DatePicker({
     <Popover>
       <PopoverTrigger
         className={cn(
-          'inline-flex h-9 w-36 items-center justify-start gap-2 rounded-md border border-input bg-transparent px-3 text-sm font-normal shadow-sm transition-colors',
+          'border-input inline-flex h-9 w-36 items-center justify-start gap-2 rounded-md border bg-transparent px-3 text-sm font-normal shadow-sm transition-colors',
           'hover:bg-accent hover:text-accent-foreground',
-          'focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring',
+          'focus-visible:ring-ring focus-visible:ring-1 focus-visible:outline-none',
           !value && 'text-muted-foreground',
           className,
         )}

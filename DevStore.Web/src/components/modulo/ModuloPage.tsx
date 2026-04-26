@@ -14,31 +14,34 @@ export function ModuloPage() {
 
   if (!config) {
     return (
-      <div className="flex flex-col items-center justify-center h-full gap-2 text-muted-foreground">
-        <p className="text-sm">Módulo não encontrado para a rota <code className="text-xs bg-muted px-1 rounded">{pathname}</code></p>
+      <div className="text-muted-foreground flex h-full flex-col items-center justify-center gap-2">
+        <p className="text-sm">
+          Módulo não encontrado para a rota{' '}
+          <code className="bg-muted rounded px-1 text-xs">{pathname}</code>
+        </p>
       </div>
     )
   }
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex h-full flex-col">
       <div className="border-b px-8 py-5">
         <h1 className="text-xl font-semibold">{config.titulo}</h1>
-        <p className="text-sm text-muted-foreground mt-0.5">{config.subtitulo}</p>
+        <p className="text-muted-foreground mt-0.5 text-sm">{config.subtitulo}</p>
       </div>
 
       <div className="border-b px-8">
         <div className="flex gap-6" role="tablist">
-          {(['cadastro', 'relatorio'] as Aba[]).map(tab => (
+          {(['cadastro', 'relatorio'] as Aba[]).map((tab) => (
             <button
               key={tab}
               role="tab"
               aria-selected={aba === tab}
               onClick={() => setAba(tab)}
-              className={`py-3 text-sm font-medium border-b-2 -mb-px transition-colors ${
+              className={`-mb-px border-b-2 py-3 text-sm font-medium transition-colors ${
                 aba === tab
                   ? 'border-primary text-foreground'
-                  : 'border-transparent text-muted-foreground hover:text-foreground'
+                  : 'text-muted-foreground hover:text-foreground border-transparent'
               }`}
             >
               {tab === 'cadastro' ? 'Cadastro' : 'Relatório'}
@@ -53,9 +56,9 @@ export function ModuloPage() {
         {aba === 'relatorio' && (
           <Suspense
             fallback={
-              <div className="flex items-center justify-center py-16 text-muted-foreground gap-2">
+              <div className="text-muted-foreground flex items-center justify-center gap-2 py-16">
                 <svg
-                  className="animate-spin h-4 w-4"
+                  className="h-4 w-4 animate-spin"
                   viewBox="0 0 24 24"
                   fill="none"
                   aria-hidden="true"
@@ -68,11 +71,7 @@ export function ModuloPage() {
                     stroke="currentColor"
                     strokeWidth="4"
                   />
-                  <path
-                    className="opacity-75"
-                    fill="currentColor"
-                    d="M4 12a8 8 0 018-8v8z"
-                  />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
                 </svg>
                 <span className="text-sm">Carregando relatório...</span>
               </div>

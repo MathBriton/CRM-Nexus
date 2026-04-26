@@ -27,7 +27,14 @@ describe('ProductForm', () => {
   })
 
   it('preenche os campos ao editar produto existente', () => {
-    const produto = { id: 1, name: 'Notebook', description: 'Gamer', price: 4999, stock: 10, createdAt: '' }
+    const produto = {
+      id: 1,
+      name: 'Notebook',
+      description: 'Gamer',
+      price: 4999,
+      stock: 10,
+      createdAt: '',
+    }
     render(<ProductForm produto={produto} onSucesso={() => {}} />)
 
     expect(screen.getByLabelText(/nome/i)).toHaveValue('Notebook')
@@ -38,7 +45,14 @@ describe('ProductForm', () => {
   it('chama onSucesso após atualizar produto com sucesso', async () => {
     const user = userEvent.setup()
     const onSucesso = vi.fn()
-    const produto = { id: 1, name: 'Notebook', description: 'Gamer', price: 4999, stock: 10, createdAt: '' }
+    const produto = {
+      id: 1,
+      name: 'Notebook',
+      description: 'Gamer',
+      price: 4999,
+      stock: 10,
+      createdAt: '',
+    }
     render(<ProductForm produto={produto} onSucesso={onSucesso} />)
 
     await user.clear(screen.getByLabelText(/nome/i))

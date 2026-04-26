@@ -5,13 +5,13 @@ import { Badge } from '@/components/ui/badge'
 import type { Categoria } from '@/data/dashboardMock'
 
 const corClasses: Record<string, string> = {
-  blue:   'bg-blue-50   text-blue-600   dark:bg-blue-950',
-  green:  'bg-green-50  text-green-600  dark:bg-green-950',
+  blue: 'bg-blue-50   text-blue-600   dark:bg-blue-950',
+  green: 'bg-green-50  text-green-600  dark:bg-green-950',
   yellow: 'bg-yellow-50 text-yellow-600 dark:bg-yellow-950',
   purple: 'bg-purple-50 text-purple-600 dark:bg-purple-950',
   orange: 'bg-orange-50 text-orange-600 dark:bg-orange-950',
-  cyan:   'bg-cyan-50   text-cyan-600   dark:bg-cyan-950',
-  red:    'bg-red-50    text-red-600    dark:bg-red-950',
+  cyan: 'bg-cyan-50   text-cyan-600   dark:bg-cyan-950',
+  red: 'bg-red-50    text-red-600    dark:bg-red-950',
 }
 
 interface CategoriaCardProps {
@@ -26,7 +26,7 @@ export function CategoriaCard({ categoria }: CategoriaCardProps) {
 
   return (
     <Card
-      className="cursor-pointer hover:shadow-md transition-shadow"
+      className="cursor-pointer transition-shadow hover:shadow-md"
       onClick={() => navigate(categoria.path)}
       role="button"
       aria-label={`Ir para ${categoria.nome}`}
@@ -40,17 +40,19 @@ export function CategoriaCard({ categoria }: CategoriaCardProps) {
             {categoria.menus.length} {categoria.menus.length === 1 ? 'menu' : 'menus'}
           </Badge>
         </div>
-        <CardTitle className="text-base mt-2">{categoria.nome}</CardTitle>
+        <CardTitle className="mt-2 text-base">{categoria.nome}</CardTitle>
       </CardHeader>
 
       <CardContent className="pt-0">
-        <div className="mt-1 rounded-md bg-muted/60 px-3 py-2">
-          <div className="flex items-center gap-1 mb-1">
-            <TrendingUp className="h-3 w-3 text-muted-foreground" />
-            <span className="text-xs text-muted-foreground font-medium">Mais acessado</span>
+        <div className="bg-muted/60 mt-1 rounded-md px-3 py-2">
+          <div className="mb-1 flex items-center gap-1">
+            <TrendingUp className="text-muted-foreground h-3 w-3" />
+            <span className="text-muted-foreground text-xs font-medium">Mais acessado</span>
           </div>
-          <p className="text-sm font-medium truncate">{menuMaisUsado.nome}</p>
-          <p className="text-xs text-muted-foreground">{menuMaisUsado.acessos.toLocaleString('pt-BR')} acessos</p>
+          <p className="truncate text-sm font-medium">{menuMaisUsado.nome}</p>
+          <p className="text-muted-foreground text-xs">
+            {menuMaisUsado.acessos.toLocaleString('pt-BR')} acessos
+          </p>
         </div>
       </CardContent>
     </Card>

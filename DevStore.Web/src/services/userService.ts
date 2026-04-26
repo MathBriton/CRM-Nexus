@@ -31,7 +31,7 @@ async function criar(dados: CreateUserRequest): Promise<User> {
       method: 'POST',
       headers: authHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify(dados),
-    })
+    }),
   )
   return res.json()
 }
@@ -42,7 +42,7 @@ async function atualizar(id: number, dados: UpdateUserRequest): Promise<void> {
       method: 'PUT',
       headers: authHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify(dados),
-    })
+    }),
   )
 }
 
@@ -52,14 +52,12 @@ async function alterarRole(id: number, role: UserRole): Promise<void> {
       method: 'PUT',
       headers: authHeaders({ 'Content-Type': 'application/json' }),
       body: JSON.stringify({ role }),
-    })
+    }),
   )
 }
 
 async function desativar(id: number): Promise<void> {
-  await checarResposta(
-    await fetch(`${BASE}/${id}`, { method: 'DELETE', headers: authHeaders() })
-  )
+  await checarResposta(await fetch(`${BASE}/${id}`, { method: 'DELETE', headers: authHeaders() }))
 }
 
 export const userService = { listar, buscarPorId, criar, atualizar, alterarRole, desativar }

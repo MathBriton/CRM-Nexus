@@ -1,9 +1,18 @@
 import { useState } from 'react'
 import { NavLink, Link, useLocation, useNavigate } from 'react-router-dom'
 import {
-  LayoutDashboard, Package, PackageCheck, DollarSign,
-  FlaskConical, FileText, Users, Shield, LogOut, ChevronDown,
-  Sun, Moon,
+  LayoutDashboard,
+  Package,
+  PackageCheck,
+  DollarSign,
+  FlaskConical,
+  FileText,
+  Users,
+  Shield,
+  LogOut,
+  ChevronDown,
+  Sun,
+  Moon,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/contexts/AuthContext'
@@ -31,7 +40,7 @@ const categorias: Categoria[] = [
     corIcon: 'text-blue-500',
     menus: [
       { label: 'Controle de Estoque', path: '/products/estoque' },
-      { label: 'Tabela de Preços',    path: '/products/precos' },
+      { label: 'Tabela de Preços', path: '/products/precos' },
     ],
   },
   {
@@ -40,9 +49,9 @@ const categorias: Categoria[] = [
     icon: PackageCheck,
     corIcon: 'text-green-500',
     menus: [
-      { label: 'Ordens de Compra',  path: '/receiving/orders' },
-      { label: 'Notas Fiscais',     path: '/receiving/invoices' },
-      { label: 'Fornecedores',      path: '/receiving/suppliers' },
+      { label: 'Ordens de Compra', path: '/receiving/orders' },
+      { label: 'Notas Fiscais', path: '/receiving/invoices' },
+      { label: 'Fornecedores', path: '/receiving/suppliers' },
     ],
   },
   {
@@ -51,7 +60,7 @@ const categorias: Categoria[] = [
     icon: DollarSign,
     corIcon: 'text-yellow-500',
     menus: [
-      { label: 'Contas a Pagar',   path: '/financial/payables' },
+      { label: 'Contas a Pagar', path: '/financial/payables' },
       { label: 'Contas a Receber', path: '/financial/receivables' },
       { label: 'Centros de Custo', path: '/financial/cost-centers' },
     ],
@@ -62,8 +71,8 @@ const categorias: Categoria[] = [
     icon: FlaskConical,
     corIcon: 'text-purple-500',
     menus: [
-      { label: 'Cadastro',               path: '/inputs/cadastro' },
-      { label: 'Movimentação',           path: '/inputs/movements' },
+      { label: 'Cadastro', path: '/inputs/cadastro' },
+      { label: 'Movimentação', path: '/inputs/movements' },
       { label: 'Solicitações de Compra', path: '/inputs/requests' },
     ],
   },
@@ -73,8 +82,8 @@ const categorias: Categoria[] = [
     icon: FileText,
     corIcon: 'text-orange-500',
     menus: [
-      { label: 'Fichas de Produção',    path: '/technical-sheets/sheets' },
-      { label: 'Composição',            path: '/technical-sheets/composition' },
+      { label: 'Fichas de Produção', path: '/technical-sheets/sheets' },
+      { label: 'Composição', path: '/technical-sheets/composition' },
       { label: 'Controle de Qualidade', path: '/technical-sheets/quality' },
     ],
   },
@@ -84,7 +93,7 @@ const categorias: Categoria[] = [
     icon: Users,
     corIcon: 'text-cyan-500',
     menus: [
-      { label: 'Grupos de Acesso',     path: '/users/groups' },
+      { label: 'Grupos de Acesso', path: '/users/groups' },
       { label: 'Histórico de Acessos', path: '/users/history' },
     ],
   },
@@ -107,12 +116,12 @@ export function Sidebar() {
   const { theme, toggleTheme } = useTheme()
 
   const [aberto, setAberto] = useState<string | null>(() => {
-    const ativa = categorias.find(c => pathname.startsWith(c.path))
+    const ativa = categorias.find((c) => pathname.startsWith(c.path))
     return ativa?.label ?? null
   })
 
   function toggleCategoria(label: string) {
-    setAberto(prev => (prev === label ? null : label))
+    setAberto((prev) => (prev === label ? null : label))
   }
 
   function handleLogout() {
@@ -121,8 +130,7 @@ export function Sidebar() {
   }
 
   return (
-    <aside className="flex h-full w-60 flex-col border-r bg-card">
-
+    <aside className="bg-card flex h-full w-60 flex-col border-r">
       {/* ── Brand ─────────────────────────────────────────────────────────── */}
       <div className="relative overflow-hidden border-b">
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-purple-600/20 via-violet-700/10 to-transparent" />
@@ -132,13 +140,15 @@ export function Sidebar() {
           aria-label="Ir para o dashboard"
         >
           <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-purple-500 to-violet-700 shadow-md shadow-purple-500/30">
-            <span className="select-none text-base font-extrabold tracking-tight text-white">N</span>
+            <span className="text-base font-extrabold tracking-tight text-white select-none">
+              N
+            </span>
           </div>
           <div className="flex flex-col leading-none">
             <span className="bg-gradient-to-r from-purple-400 to-violet-300 bg-clip-text text-base font-bold text-transparent">
               Nexus
             </span>
-            <span className="mt-0.5 text-[10px] uppercase tracking-widest text-muted-foreground">
+            <span className="text-muted-foreground mt-0.5 text-[10px] tracking-widest uppercase">
               Sistema de Gestão
             </span>
           </div>
@@ -146,7 +156,7 @@ export function Sidebar() {
       </div>
 
       {/* ── Navegação ─────────────────────────────────────────────────────── */}
-      <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-0.5">
+      <nav className="flex-1 space-y-0.5 overflow-y-auto px-3 py-4">
         {/* Dashboard */}
         <NavLink
           to="/dashboard"
@@ -164,7 +174,7 @@ export function Sidebar() {
         </NavLink>
 
         {/* Categorias com accordion exclusivo */}
-        {categorias.map(cat => {
+        {categorias.map((cat) => {
           const estaAberto = aberto === cat.label
           const estaAtivo = pathname.startsWith(cat.path)
 
@@ -194,8 +204,8 @@ export function Sidebar() {
 
               {/* Sub-menus */}
               {estaAberto && (
-                <div className="ml-7 mt-0.5 mb-1 space-y-0.5 border-l border-border pl-3">
-                  {cat.menus.map(menu => (
+                <div className="border-border mt-0.5 mb-1 ml-7 space-y-0.5 border-l pl-3">
+                  {cat.menus.map((menu) => (
                     <NavLink
                       key={menu.path}
                       to={menu.path}
@@ -219,18 +229,16 @@ export function Sidebar() {
       </nav>
 
       {/* ── Rodapé: usuário + dark mode + logout ─────────────────────────── */}
-      <div className="border-t px-4 py-3 flex items-center justify-between gap-2">
-        <span className="min-w-0 text-sm font-medium truncate">{user?.name}</span>
-        <div className="flex items-center gap-0.5 shrink-0">
+      <div className="flex items-center justify-between gap-2 border-t px-4 py-3">
+        <span className="min-w-0 truncate text-sm font-medium">{user?.name}</span>
+        <div className="flex shrink-0 items-center gap-0.5">
           <Button
             variant="ghost"
             size="icon"
             onClick={toggleTheme}
             aria-label={theme === 'dark' ? 'Mudar para modo claro' : 'Mudar para modo escuro'}
           >
-            {theme === 'dark'
-              ? <Sun className="h-4 w-4" />
-              : <Moon className="h-4 w-4" />}
+            {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </Button>
           <Button variant="ghost" size="icon" onClick={handleLogout} aria-label="Sair">
             <LogOut className="h-4 w-4" />
