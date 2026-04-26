@@ -51,7 +51,7 @@ describe('UserForm — criar', () => {
     await user.type(screen.getByLabelText(/nome completo/i), 'Novo Usuário')
     await user.type(screen.getByLabelText(/e-mail/i), 'novo@dev.com')
     await user.type(screen.getByLabelText(/senha/i), 'Senha@123')
-    await user.click(screen.getByRole('button', { name: /criar usuário/i }))
+    await user.click(screen.getByRole('button', { name: /^criar$/i }))
 
     await waitFor(() => expect(onSucesso).toHaveBeenCalledOnce())
   })

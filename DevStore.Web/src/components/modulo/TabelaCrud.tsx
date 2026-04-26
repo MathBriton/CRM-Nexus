@@ -38,9 +38,13 @@ export function TabelaCrud({ config }: Props) {
     <div className="space-y-4">
       {temAcoes && (
         <div className="flex justify-end">
-          <Button size="sm" onClick={() => setModal('novo')}>
-            <Plus className="h-4 w-4 mr-1.5" aria-hidden="true" />
-            Novo {config.entidade}
+          <Button
+            size="sm"
+            onClick={() => setModal('novo')}
+            className="bg-green-600 hover:bg-green-700 active:bg-green-800 text-white border-0 gap-1.5 shadow-sm"
+          >
+            <Plus className="h-4 w-4" aria-hidden="true" />
+            Criar
           </Button>
         </div>
       )}
@@ -81,6 +85,7 @@ export function TabelaCrud({ config }: Props) {
           }
           campos={config.campos}
           inicial={modal === 'novo' ? {} : (modal as Registro)}
+          criarNovo={modal === 'novo'}
           onSalvar={salvar}
           onCancelar={() => setModal(null)}
         />

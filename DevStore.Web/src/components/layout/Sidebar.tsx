@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { NavLink, Link, useLocation, useNavigate } from 'react-router-dom'
 import {
-  LayoutDashboard, Package, PackageCheck, DollarSign,
-  FlaskConical, FileText, Users, Shield, LogOut, ChevronDown,
+  LayoutDashboard, PackageCheck, DollarSign,
+  FlaskConical, FileText, Users, Shield, LogOut, ChevronDown, Package,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useAuth } from '@/contexts/AuthContext'
@@ -103,20 +103,13 @@ export function Sidebar() {
   const navigate = useNavigate()
   const { pathname } = useLocation()
 
-  const [abertos, setAbertos] = useState<Set<string>>(() => {
-    const s = new Set<string>()
-    categorias.forEach(c => {
-      if (pathname.startsWith(c.path)) s.add(c.label)
-    })
-    return s
+  const [aberto, setAberto] = useState<string | null>(() => {
+    const ativa = categorias.find(c => pathname.startsWith(c.path))
+    return ativa?.label ?? null
   })
 
   function toggleCategoria(label: string) {
-    setAbertos(prev => {
-      const next = new Set(prev)
-      next.has(label) ? next.delete(label) : next.add(label)
-      return next
-    })
+    setAberto(prev => (prev === label ? null : label))
   }
 
   function handleLogout() {
@@ -131,8 +124,10 @@ export function Sidebar() {
         className="flex items-center gap-2 px-6 py-5 border-b hover:bg-muted/50 transition-colors"
         aria-label="Ir para o dashboard"
       >
-        <Package className="h-5 w-5 text-primary" />
-        <span className="font-bold text-lg">DevStore</span>
+        <span className="flex h-7 w-7 items-center justify-center rounded-lg bg-gradient-to-br from-purple-500 to-violet-700 text-white text-sm font-extrabold select-none shadow-sm">
+          N
+        </span>
+        <span className="font-bold text-lg">Nexus</span>
       </Link>
 
       <nav className="flex-1 overflow-y-auto py-4 px-3 space-y-0.5">
@@ -154,7 +149,7 @@ export function Sidebar() {
 
         {/* Categorias com accordion */}
         {categorias.map(cat => {
-          const aberto = abertos.has(cat.label)
+          const estaAberto = aberto === cat.label
           return (
             <div key={cat.path}>
               {/* Linha da categoria: NavLink + botão chevron */}
@@ -162,7 +157,7 @@ export function Sidebar() {
                 <NavLink
                   to={cat.path}
                   end={false}
-                  onClick={() => { if (!aberto) toggleCategoria(cat.label) }}
+                  onClick={() => { if (!estaAberto) toggleCategoria(cat.label) }}
                   className={({ isActive }) =>
                     cn(
                       'flex flex-1 items-center gap-3 rounded-md px-3 py-2 pr-8 text-sm font-medium transition-colors',
@@ -180,19 +175,19 @@ export function Sidebar() {
                   onClick={() => toggleCategoria(cat.label)}
                   className="absolute right-1 p-1 rounded text-muted-foreground hover:text-foreground transition-colors"
                   aria-label={`Expandir ${cat.label}`}
-                  aria-expanded={aberto}
+                  aria-expanded={estaAberto}
                 >
                   <ChevronDown
                     className={cn(
                       'h-3.5 w-3.5 transition-transform duration-200',
-                      aberto && 'rotate-180',
+                      estaAberto && 'rotate-180',
                     )}
                   />
                 </button>
               </div>
 
               {/* Sub-menus */}
-              {aberto && (
+              {estaAberto && (
                 <div className="ml-7 mt-0.5 mb-1 space-y-0.5 border-l border-border pl-3">
                   {cat.menus.map(menu => (
                     <NavLink

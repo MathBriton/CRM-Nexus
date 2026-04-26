@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react'
-import { UserCircle2, Upload } from 'lucide-react'
+import { UserCircle2, Upload, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
@@ -185,9 +185,19 @@ export function UserForm({ usuario, onSucesso }: UserFormProps) {
 
           {erro && <p role="alert" className="text-sm text-destructive">{erro}</p>}
 
-          <Button type="submit" disabled={enviando} className="w-full">
-            {enviando ? 'Salvando...' : editando ? 'Salvar alterações' : 'Criar usuário'}
-          </Button>
+          {enviando ? (
+            <Button type="submit" disabled className="w-full">Salvando...</Button>
+          ) : editando ? (
+            <Button type="submit" className="w-full">Salvar alterações</Button>
+          ) : (
+            <Button
+              type="submit"
+              className="w-full bg-green-600 hover:bg-green-700 active:bg-green-800 text-white border-0 gap-1.5"
+            >
+              <Plus className="h-4 w-4" aria-hidden="true" />
+              Criar
+            </Button>
+          )}
         </form>
       </CardContent>
     </Card>

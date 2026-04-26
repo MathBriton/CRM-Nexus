@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -77,9 +78,19 @@ export function ProductForm({ produto, onSucesso }: Props) {
           </div>
 
           <div className="sm:col-span-2 flex justify-end">
-            <Button type="submit" disabled={enviando}>
-              {enviando ? 'Salvando...' : 'Salvar'}
-            </Button>
+            {enviando ? (
+              <Button type="submit" disabled>Salvando...</Button>
+            ) : produto ? (
+              <Button type="submit">Salvar alterações</Button>
+            ) : (
+              <Button
+                type="submit"
+                className="bg-green-600 hover:bg-green-700 active:bg-green-800 text-white border-0 gap-1.5"
+              >
+                <Plus className="h-4 w-4" aria-hidden="true" />
+                Criar
+              </Button>
+            )}
           </div>
         </form>
       </CardContent>

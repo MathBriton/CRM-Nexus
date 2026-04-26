@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Plus } from 'lucide-react'
 import type { CampoForm } from '@/types/modulo'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -8,11 +9,12 @@ interface Props {
   titulo: string
   campos: CampoForm[]
   inicial?: Record<string, unknown>
+  criarNovo?: boolean
   onSalvar: (dados: Record<string, string>) => void
   onCancelar: () => void
 }
 
-export function FormModal({ titulo, campos, inicial = {}, onSalvar, onCancelar }: Props) {
+export function FormModal({ titulo, campos, inicial = {}, criarNovo = false, onSalvar, onCancelar }: Props) {
   const [form, setForm] = useState<Record<string, string>>(
     Object.fromEntries(campos.map(c => [c.key, String(inicial[c.key] ?? '')])),
   )
@@ -72,7 +74,17 @@ export function FormModal({ titulo, campos, inicial = {}, onSalvar, onCancelar }
             <Button type="button" variant="outline" onClick={onCancelar}>
               Cancelar
             </Button>
-            <Button type="submit">Salvar</Button>
+            {criarNovo ? (
+              <Button
+                type="submit"
+                className="bg-green-600 hover:bg-green-700 active:bg-green-800 text-white border-0 gap-1.5"
+              >
+                <Plus className="h-4 w-4" aria-hidden="true" />
+                Criar
+              </Button>
+            ) : (
+              <Button type="submit">Salvar alterações</Button>
+            )}
           </div>
         </form>
       </div>

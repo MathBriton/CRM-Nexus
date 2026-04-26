@@ -91,12 +91,20 @@ export function PermissionsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">Controle de Permissões de Usuário</h2>
-        <Button
-          onClick={() => setMostrarForm((v) => !v)}
-          variant={mostrarForm ? 'outline' : 'default'}
-        >
-          {mostrarForm ? 'Cancelar' : <><Plus className="h-4 w-4 mr-1" />Nova Permissão</>}
-        </Button>
+        {mostrarForm ? (
+          <Button variant="outline" onClick={() => setMostrarForm(false)}>
+            Cancelar
+          </Button>
+        ) : (
+          <Button
+            size="sm"
+            onClick={() => setMostrarForm(true)}
+            className="bg-green-600 hover:bg-green-700 active:bg-green-800 text-white border-0 gap-1.5 shadow-sm"
+          >
+            <Plus className="h-4 w-4" aria-hidden="true" />
+            Criar
+          </Button>
+        )}
       </div>
 
       {mostrarForm && (
@@ -133,7 +141,13 @@ export function PermissionsPage() {
                 </select>
               </div>
               {erro && <p role="alert" className="text-sm text-destructive">{erro}</p>}
-              <Button type="submit" className="w-full">Criar Permissão</Button>
+              <Button
+                type="submit"
+                className="w-full bg-green-600 hover:bg-green-700 active:bg-green-800 text-white border-0 gap-1.5"
+              >
+                <Plus className="h-4 w-4" aria-hidden="true" />
+                Criar
+              </Button>
             </form>
           </CardContent>
         </Card>

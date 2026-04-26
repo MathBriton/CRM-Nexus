@@ -23,7 +23,7 @@ describe('ProductsPage', () => {
     const user = userEvent.setup()
     renderPage()
 
-    await user.click(screen.getByRole('button', { name: /novo produto/i }))
+    await user.click(screen.getByRole('button', { name: /^criar$/i }))
 
     expect(screen.getByLabelText(/nome/i)).toBeInTheDocument()
   })

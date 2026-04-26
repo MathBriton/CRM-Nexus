@@ -1,4 +1,5 @@
 import { useState, useCallback } from 'react'
+import { Plus } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { UserList } from '@/components/users/UserList'
 import { UserForm } from '@/components/users/UserForm'
@@ -26,12 +27,20 @@ export function UsersPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-semibold">Controle de Acesso de Usuários</h2>
-        <Button
-          onClick={() => setFormulario((atual) => (atual ? null : { modo: 'criar' }))}
-          variant={formulario ? 'outline' : 'default'}
-        >
-          {formulario ? 'Cancelar' : 'Novo Usuário'}
-        </Button>
+        {formulario ? (
+          <Button variant="outline" onClick={() => setFormulario(null)}>
+            Cancelar
+          </Button>
+        ) : (
+          <Button
+            size="sm"
+            onClick={() => setFormulario({ modo: 'criar' })}
+            className="bg-green-600 hover:bg-green-700 active:bg-green-800 text-white border-0 gap-1.5 shadow-sm"
+          >
+            <Plus className="h-4 w-4" aria-hidden="true" />
+            Criar
+          </Button>
+        )}
       </div>
 
       {formulario && (

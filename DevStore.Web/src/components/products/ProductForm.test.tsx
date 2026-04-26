@@ -21,7 +21,7 @@ describe('ProductForm', () => {
     await user.type(screen.getByLabelText(/descrição/i), 'Mecânico')
     await user.type(screen.getByLabelText(/preço/i), '350')
     await user.type(screen.getByLabelText(/estoque/i), '20')
-    await user.click(screen.getByRole('button', { name: /salvar/i }))
+    await user.click(screen.getByRole('button', { name: /^criar$/i }))
 
     await waitFor(() => expect(onSucesso).toHaveBeenCalledOnce())
   })
