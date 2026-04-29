@@ -40,32 +40,34 @@ describe('App — roteamento', () => {
   })
 
   it('redireciona para /login sem autenticação ao acessar rota protegida', () => {
-    renderApp('/products')
+    renderApp('/dashboard')
     expect(screen.getByLabelText(/usuário/i)).toBeInTheDocument()
   })
 
-  it('exibe dashboard ao acessar /products autenticado', async () => {
+  it('exibe dashboard ao acessar /dashboard autenticado', async () => {
     autenticar()
-    renderApp('/products')
-    await waitFor(() => expect(screen.getByText('Notebook Dell G15')).toBeInTheDocument())
-    expect(screen.getByRole('button', { name: /produtos/i })).toBeInTheDocument()
+    renderApp('/dashboard')
+    await waitFor(() =>
+      expect(screen.getByRole('heading', { name: /visão geral/i })).toBeInTheDocument(),
+    )
+    expect(screen.getByRole('button', { name: /^financeiro$/i })).toBeInTheDocument()
   })
 
   it('abre sub-menu de Financeiro via sidebar', async () => {
     autenticar()
     const user = userEvent.setup()
-    renderApp('/products')
+    renderApp('/dashboard')
 
-    await waitFor(() => screen.getByRole('button', { name: /financeiro/i }))
-    await user.click(screen.getByRole('button', { name: /financeiro/i }))
+    await waitFor(() => screen.getByRole('button', { name: /^financeiro$/i }))
+    await user.click(screen.getByRole('button', { name: /^financeiro$/i }))
 
-    expect(screen.getByRole('link', { name: /contas a pagar/i })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /alterar risco/i })).toBeInTheDocument()
   })
 
   it('redireciona para /login após logout', async () => {
     autenticar()
     const user = userEvent.setup()
-    renderApp('/products')
+    renderApp('/dashboard')
 
     await waitFor(() => screen.getByRole('button', { name: /sair/i }))
     await user.click(screen.getByRole('button', { name: /sair/i }))

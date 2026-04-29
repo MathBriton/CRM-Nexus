@@ -20,7 +20,7 @@ export function LoginPage() {
     setCarregando(true)
     try {
       await login(username, password)
-      navigate('/products')
+      navigate('/dashboard')
     } catch {
       setErro('Credenciais inválidas. Tente novamente.')
     } finally {

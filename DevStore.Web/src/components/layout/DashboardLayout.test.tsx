@@ -4,14 +4,14 @@ import { Routes, Route } from 'react-router-dom'
 import { renderWithProviders } from '@/test/renderWithProviders'
 import { DashboardLayout } from './DashboardLayout'
 
-function renderDashboard(route = '/products') {
+function renderDashboard(route = '/dashboard') {
   localStorage.setItem('auth_token', 'fake-jwt-token')
   localStorage.setItem('auth_user', JSON.stringify({ id: 1, name: 'Admin', username: 'admin' }))
 
   return renderWithProviders(
     <Routes>
       <Route element={<DashboardLayout />}>
-        <Route path="/products" element={<p>Conteúdo Produtos</p>} />
+        <Route path="/dashboard" element={<p>Conteúdo Dashboard</p>} />
       </Route>
     </Routes>,
     { route },
@@ -21,12 +21,12 @@ function renderDashboard(route = '/products') {
 describe('DashboardLayout', () => {
   it('exibe a sidebar de navegação', () => {
     renderDashboard()
-    expect(screen.getByRole('button', { name: /produtos/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /administrador/i })).toBeInTheDocument()
   })
 
   it('renderiza o conteúdo da rota filha', () => {
     renderDashboard()
-    expect(screen.getByText('Conteúdo Produtos')).toBeInTheDocument()
+    expect(screen.getByText('Conteúdo Dashboard')).toBeInTheDocument()
   })
 
   it('exibe o nome do usuário na sidebar', () => {

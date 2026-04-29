@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event'
 import { renderWithProviders } from '@/test/renderWithProviders'
 import { Sidebar } from './Sidebar'
 
-function renderSidebar(route = '/products') {
+function renderSidebar(route = '/dashboard') {
   return renderWithProviders(<Sidebar />, { route })
 }
 
@@ -15,32 +15,37 @@ describe('Sidebar', () => {
     expect(screen.getByRole('link', { name: /^dashboard$/i })).toBeInTheDocument()
   })
 
+  it('exibe o rótulo de seção Serviços', () => {
+    renderSidebar()
+    expect(screen.getByText(/^serviços$/i)).toBeInTheDocument()
+  })
+
   it('exibe todos os botões de categoria de navegação', () => {
     renderSidebar()
-    expect(screen.getByRole('button', { name: /produtos/i })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /recebimento/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /administrador/i })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /financeiro/i })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /insumos/i })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /fichas técnicas/i })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /usuários/i })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /permissões/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /^pedidos$/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /sgq/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /validações/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /desenvolvimento/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /expedição/i })).toBeInTheDocument()
   })
 
   it('abre accordion ao clicar em uma categoria', async () => {
     const user = userEvent.setup()
     renderSidebar('/dashboard')
-    await user.click(screen.getByRole('button', { name: /financeiro/i }))
-    expect(screen.getByRole('link', { name: /contas a pagar/i })).toBeInTheDocument()
+    await user.click(screen.getByRole('button', { name: /^pedidos$/i }))
+    expect(screen.getByRole('link', { name: /^pedidos brasil$/i })).toBeInTheDocument()
   })
 
   it('fecha accordion de outra categoria ao abrir nova', async () => {
     const user = userEvent.setup()
     renderSidebar('/dashboard')
+    await user.click(screen.getByRole('button', { name: /^pedidos$/i }))
+    expect(screen.getByRole('link', { name: /^pedidos brasil$/i })).toBeInTheDocument()
     await user.click(screen.getByRole('button', { name: /financeiro/i }))
-    expect(screen.getByRole('link', { name: /contas a pagar/i })).toBeInTheDocument()
-    await user.click(screen.getByRole('button', { name: /insumos/i }))
-    expect(screen.queryByRole('link', { name: /contas a pagar/i })).not.toBeInTheDocument()
-    expect(screen.getByRole('link', { name: /movimentação/i })).toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: /^pedidos brasil$/i })).not.toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /alterar risco/i })).toBeInTheDocument()
   })
 
   it('exibe botão de logout', () => {
