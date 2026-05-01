@@ -47,11 +47,11 @@ const categorias: Categoria[] = [
     corIcon: 'text-red-500',
     menus: [
       { label: 'Acessos Usuários', path: '/admin/acessos-usuarios' },
-      { label: 'Alterar usuário SWNET', path: '/admin/alterar-usuario-swnet' },
-      { label: 'Cadastrar Usuário SWNET', path: '/admin/cadastrar-usuario-swnet' },
+      { label: 'Alterar usuário Nexus', path: '/admin/alterar-usuario-nexus' },
+      { label: 'Cadastrar Usuário Nexus', path: '/admin/cadastrar-usuario-nexus' },
       { label: 'Cancelar Usuários', path: '/admin/cancelar-usuarios' },
       { label: 'Criação Usuários AD', path: '/admin/criacao-usuarios-ad' },
-      { label: 'Desativar usuário SWNET', path: '/admin/desativar-usuario-swnet' },
+      { label: 'Desativar usuário Nexus', path: '/admin/desativar-usuario-nexus' },
       { label: 'Gerenciar Menus', path: '/admin/gerenciar-menus' },
       { label: 'Permissões de Usuário', path: '/admin/permissoes-usuario' },
       { label: 'Relatório de Permissão de Usuários', path: '/admin/relatorio-permissoes' },
@@ -251,9 +251,6 @@ export function Sidebar() {
             <span className="bg-gradient-to-r from-purple-400 to-violet-300 bg-clip-text text-base font-bold text-transparent">
               Nexus
             </span>
-            <span className="text-muted-foreground mt-0.5 text-[10px] tracking-widest uppercase">
-              Sistema de Gestão
-            </span>
           </div>
         </Link>
       </div>
@@ -272,7 +269,7 @@ export function Sidebar() {
             )
           }
         >
-          <LayoutDashboard className="h-4 w-4 shrink-0 text-violet-500 [filter:brightness(1.2)_drop-shadow(0_0_6px_currentColor)]" />
+          <LayoutDashboard className="h-4 w-4 shrink-0 text-purple-400 dark:text-purple-300 [filter:brightness(1.2)_drop-shadow(0_0_6px_currentColor)]" />
           Dashboard
         </NavLink>
 

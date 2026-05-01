@@ -12,6 +12,17 @@ dist
 dist-ssr
 *.local
 
+# Variáveis de ambiente (nunca commitar segredos de API keys, tokens, etc.)
+.env
+.env.*
+!.env.example
+
+# Cache do Vite
+.vite
+
+# Cobertura de testes
+coverage
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

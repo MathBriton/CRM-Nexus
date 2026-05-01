@@ -11,10 +11,27 @@ obj/
 # Variáveis de ambiente (nunca commitar segredos)
 .env
 .env.*
+!.env.example
+
+# Segredos de produção do .NET (usar env vars ou dotnet user-secrets em dev)
+appsettings.Production.json
+appsettings.Staging.json
+
+# Chaves privadas e certificados
+*.pfx
+*.pem
+*.key
+*.crt
+*.p12
+*.p7b
+
+# dotnet user-secrets (ficam fora do repo por design, mas por segurança)
+**/secrets.json
 
 # Node
 DevStore.Web/node_modules/
 DevStore.Web/dist/
+DevStore.Web/.vite/
 
 # Cobertura de testes
 coverage/
@@ -22,3 +39,5 @@ DevStore.Web/coverage/
 
 # Logs
 *.log
+*.bak
+*.tmp

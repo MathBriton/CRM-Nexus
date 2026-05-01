@@ -21,11 +21,11 @@ function App() {
 
               {/* Administrador */}
               <Route path="/admin/acessos-usuarios" element={<ModuloPage />} />
-              <Route path="/admin/alterar-usuario-swnet" element={<ModuloPage />} />
-              <Route path="/admin/cadastrar-usuario-swnet" element={<ModuloPage />} />
+              <Route path="/admin/alterar-usuario-nexus" element={<ModuloPage />} />
+              <Route path="/admin/cadastrar-usuario-nexus" element={<ModuloPage />} />
               <Route path="/admin/cancelar-usuarios" element={<ModuloPage />} />
               <Route path="/admin/criacao-usuarios-ad" element={<ModuloPage />} />
-              <Route path="/admin/desativar-usuario-swnet" element={<ModuloPage />} />
+              <Route path="/admin/desativar-usuario-nexus" element={<ModuloPage />} />
               <Route path="/admin/gerenciar-menus" element={<ModuloPage />} />
               <Route path="/admin/permissoes-usuario" element={<ModuloPage />} />
               <Route path="/admin/relatorio-permissoes" element={<ModuloPage />} />
