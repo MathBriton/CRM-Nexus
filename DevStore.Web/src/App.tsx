@@ -7,6 +7,7 @@ import { ModuloPage } from '@/components/modulo/ModuloPage'
 import { LoginPage } from '@/pages/LoginPage'
 import { NotFoundPage } from '@/pages/NotFoundPage'
 import { DashboardPage } from '@/pages/dashboard/DashboardPage'
+import { AcessosUsuariosPage } from '@/pages/admin/AcessosUsuariosPage'
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
               <Route path="/dashboard" element={<DashboardPage />} />
 
               {/* Administrador */}
-              <Route path="/admin/acessos-usuarios" element={<ModuloPage />} />
+              <Route path="/admin/acessos-usuarios" element={<AcessosUsuariosPage />} />
               <Route path="/admin/alterar-usuario-nexus" element={<ModuloPage />} />
               <Route path="/admin/cadastrar-usuario-nexus" element={<ModuloPage />} />
               <Route path="/admin/cancelar-usuarios" element={<ModuloPage />} />

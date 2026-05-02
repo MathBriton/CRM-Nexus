@@ -1,6 +1,7 @@
 import { http, HttpResponse } from 'msw'
 import type { Product } from '../types/product'
 import type { User } from '../types/user'
+import type { NexusUsuario, ItemPermissao } from '../types/permissao'
 
 export const usuarioAdmin = { id: 1, name: 'Admin', username: 'admin' }
 
@@ -268,6 +269,34 @@ export const produtos: Product[] = [
 let _nextProductId = produtos.length + 1
 let _nextUserId = usuarios.length + 1
 
+export const nexusUsuarios: NexusUsuario[] = [
+  { id: 1, matricula: 'MAT001', filial: '01', nome: 'Ana Paula Ferreira', login: 'ana.paula' },
+  { id: 2, matricula: 'MAT002', filial: '01', nome: 'Carlos Eduardo Mendes', login: 'carlos.mendes' },
+  { id: 3, matricula: 'MAT003', filial: '02', nome: 'Fernanda Lima Santos', login: 'fernanda.lima' },
+  { id: 4, matricula: 'MAT004', filial: '01', nome: 'João Paulo Silva', login: 'joao.silva' },
+  { id: 5, matricula: 'MAT005', filial: '02', nome: 'Maria Clara Oliveira', login: 'maria.oliveira' },
+]
+
+const mockPermissoesServicos: ItemPermissao[] = [
+  { codigo: '1', nome: 'Acessos Usuários', categoria: 'Administrador', habilitado: true },
+  { codigo: '2', nome: 'Gerenciar Menus', categoria: 'Administrador', habilitado: false },
+  { codigo: '3', nome: 'Aprovador FNC', categoria: 'Cadastros FNC', habilitado: true },
+  { codigo: '4', nome: 'Defeitos de FNC', categoria: 'Cadastros FNC', habilitado: false },
+  { codigo: '5', nome: 'Alterar Risco', categoria: 'Financeiro', habilitado: true },
+  { codigo: '6', nome: 'Cadastro Canhoto', categoria: 'Financeiro', habilitado: true },
+  { codigo: '7', nome: 'Solicitar Aumento de Crédito', categoria: 'Financeiro', habilitado: false },
+]
+
+const mockPermissoesConsultas: ItemPermissao[] = [
+  { codigo: '1', nome: 'Carteira', categoria: 'Comercial', habilitado: true },
+  { codigo: '2', nome: 'Faturamento detalhado', categoria: 'Comercial', habilitado: false },
+  { codigo: '3', nome: 'IQF - Analítico', categoria: 'Compras', habilitado: true },
+  { codigo: '4', nome: 'Buscar Nota Fiscal', categoria: 'Financeiro', habilitado: false },
+  { codigo: '5', nome: 'Comissões', categoria: 'Financeiro', habilitado: true },
+]
+
+const permissoesUsuarios = new Map<string, { servicos: ItemPermissao[]; consultas: ItemPermissao[] }>()
+
 export const handlers = [
   http.post('/api/auth/login', async ({ request }) => {
     const { username, password } = (await request.json()) as { username: string; password: string }
@@ -349,4 +378,38 @@ export const handlers = [
       ? new HttpResponse(null, { status: 204 })
       : new HttpResponse(null, { status: 404 })
   }),
+
+  http.get('/api/permissoes/usuarios', () => HttpResponse.json(nexusUsuarios)),
+
+  http.get('/api/permissoes/usuario/:matricula/:filial', ({ params }) => {
+    const chave = `${params.matricula}|${params.filial}`
+    const salvo = permissoesUsuarios.get(chave)
+    return HttpResponse.json({
+      servicos: salvo?.servicos ?? mockPermissoesServicos,
+      consultas: salvo?.consultas ?? mockPermissoesConsultas,
+    })
+  }),
+
+  http.post('/api/permissoes/usuario/:matricula/:filial', async ({ params, request }) => {
+    const body = (await request.json()) as {
+      servicosHabilitados: string[]
+      consultasHabilitadas: string[]
+    }
+    const chave = `${params.matricula}|${params.filial}`
+    permissoesUsuarios.set(chave, {
+      servicos: mockPermissoesServicos.map((s) => ({
+        ...s,
+        habilitado: body.servicosHabilitados.includes(s.codigo),
+      })),
+      consultas: mockPermissoesConsultas.map((c) => ({
+        ...c,
+        habilitado: body.consultasHabilitadas.includes(c.codigo),
+      })),
+    })
+    return new HttpResponse(null, { status: 204 })
+  }),
+
+  http.post('/api/permissoes/usuario/:matricula/:filial/importar', () =>
+    new HttpResponse(null, { status: 204 }),
+  ),
 ]
